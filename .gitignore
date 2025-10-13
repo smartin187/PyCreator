@@ -1,0 +1,11 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/**
+*.py[codz]
+*$py.class
+
+**/*.pyc
+
+# Ignore all PPyC files in any directory
+**/*.PPyC
+
+

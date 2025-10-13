@@ -4,6 +4,8 @@ Module qui gère l'éditeur de PyCreator.
 from tkinter import *
 import logging
 
+from gestionaire_de_fichier import *
+
 logging.basicConfig(level=logging.DEBUG)
 
 fênetre_éditeur_PyCreator=None
@@ -12,8 +14,12 @@ code_frame=None
 
 fichier=[]
 
+
 def éditeur_PyCreator():
     """Fonction principale de PyCreator"""
+    def export():
+        """Cette fonction appellèle l'autre fonciton d'export pour avoir l'argument."""
+        exporter_le_programme(fichier_liste=fichier)
     global fênetre_éditeur_PyCreator
     global espace_de_code
     global code_frame
@@ -27,7 +33,11 @@ def éditeur_PyCreator():
     ajouter_une_ligne_bouton=Button(code_frame, text="Ajouter une ligne de code", command=ajouter_une_ligne).pack()
 
     espace_de_code.pack()
+  
     code_frame.pack()
+
+    expotrer_le_code=Button(fênetre_éditeur_PyCreator, text="Exporter", command=export)
+    expotrer_le_code.pack()
 
     fênetre_éditeur_PyCreator.mainloop()
 
@@ -130,7 +140,7 @@ def mise_a_jours_interface_graphique():
         """Cette fonction ajoute a l'interface graphique un ligne de code."""
         nouvelle_ligne_de_code=LabelFrame(code_frame, text="Action :")
         texte_humain=Label(nouvelle_ligne_de_code, text=élément_utiliser["français"]).pack()
-        texte_python=Label(nouvelle_ligne_de_code, text="").pack()
+        texte_python=Label(nouvelle_ligne_de_code, text=élément_utiliser["Python"]).pack()
         nouvelle_ligne_de_code.pack()
 
     global code_frame

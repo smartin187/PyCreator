@@ -20,12 +20,35 @@ def éditeur_PyCreator():
     def export():
         """Cette fonction appellèle l'autre fonciton d'export pour avoir l'argument."""
         exporter_le_programme(fichier_liste=fichier)
+    
+    def enregister_le_fichier_fênetre():
+        """Cette fonciton appèle l'autre fonction d'export pour avoir l'argument."""
+        enregistrer_le_fichier(liste_fichier=fichier)
+    
+    def ouvrir_le_fihcier_fênetre():
+        """Cette fonction appèlle l'autre fonction d'ouverture pour avoir le retour"""
+        global fichier
+        fichier=ouvrir_un_fichier_PPyC()
+        mise_a_jours_interface_graphique()
+    
     global fênetre_éditeur_PyCreator
     global espace_de_code
     global code_frame
 
     fênetre_éditeur_PyCreator=Tk()
     fênetre_éditeur_PyCreator.title("PyCreator - éditeur")
+
+    cadre_fichier=LabelFrame(fênetre_éditeur_PyCreator, text="")
+    expotrer_le_code=Button(cadre_fichier, text="Exporter", command=export)
+    expotrer_le_code.grid(column=1, columnspan=1)
+
+    enregistrer_le_code=Button(cadre_fichier, text="Enregistrer", command=enregister_le_fichier_fênetre)
+    enregistrer_le_code.grid(column=2, columnspan=1)
+
+    ouvrir_le_fichier=Button(cadre_fichier, text="Ouvrir", command=ouvrir_le_fihcier_fênetre)
+    ouvrir_le_fichier.grid(column=3, columnspan=1)
+
+    cadre_fichier.pack()
 
     # espace de code -----------------------------------
     espace_de_code=LabelFrame(fênetre_éditeur_PyCreator, text="Espace de code")
@@ -36,8 +59,7 @@ def éditeur_PyCreator():
   
     code_frame.pack()
 
-    expotrer_le_code=Button(fênetre_éditeur_PyCreator, text="Exporter", command=export)
-    expotrer_le_code.pack()
+    
 
     fênetre_éditeur_PyCreator.mainloop()
 
@@ -151,9 +173,6 @@ def mise_a_jours_interface_graphique():
     for element in fichier:
         ajouter_ligne_de_code_interface(element)
         
-
-    
-     
 
     ajouter_une_ligne_bouton=Button(code_frame, text="Ajouter une ligne de code", command=ajouter_une_ligne).pack()
     code_frame.pack()

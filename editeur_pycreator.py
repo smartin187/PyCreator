@@ -38,11 +38,19 @@ def éditeur_PyCreator():
     fênetre_éditeur_PyCreator=Tk()
     fênetre_éditeur_PyCreator.title("PyCreator - éditeur")
 
+    barre_menu_liste_déroulant= Menu(fênetre_éditeur_PyCreator)
+    fênetre_éditeur_PyCreator.config(menu=barre_menu_liste_déroulant)
+
+    menu_fichier = Menu(barre_menu_liste_déroulant, tearoff=0)
+    barre_menu_liste_déroulant.add_cascade(label="Fichier", menu=menu_fichier)
+
+    menu_fichier.add_command(label="Ouvrir", command=ouvrir_le_fihcier_fênetre)
+
     cadre_fichier=LabelFrame(fênetre_éditeur_PyCreator, text="")
     expotrer_le_code=Button(cadre_fichier, text="Exporter", command=export)
     expotrer_le_code.grid(column=1, columnspan=1)
 
-    enregistrer_le_code=Button(cadre_fichier, text="Enregistrer", command=enregister_le_fichier_fênetre)
+    enregistrer_le_code=Button(cadre_fichier, text="Enregistrer sous", command=enregister_le_fichier_fênetre)
     enregistrer_le_code.grid(column=2, columnspan=1)
 
     ouvrir_le_fichier=Button(cadre_fichier, text="Ouvrir", command=ouvrir_le_fihcier_fênetre)

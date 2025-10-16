@@ -5,6 +5,7 @@ from tkinter import *
 import logging
 
 from gestionaire_de_fichier import *
+from traduction import *
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -13,7 +14,7 @@ espace_de_code=None
 code_frame=None
 
 fichier=[]
-
+langue="fr"
 
 def éditeur_PyCreator():
     """Fonction principale de PyCreator"""
@@ -36,24 +37,24 @@ def éditeur_PyCreator():
     global code_frame
 
     fênetre_éditeur_PyCreator=Tk()
-    fênetre_éditeur_PyCreator.title("PyCreator - éditeur")
+    fênetre_éditeur_PyCreator.title(trad_aaaaa[langue])
 
     barre_menu_liste_déroulant = Menu(fênetre_éditeur_PyCreator)
     fênetre_éditeur_PyCreator.config(menu=barre_menu_liste_déroulant)
 
     menu_fichier = Menu(barre_menu_liste_déroulant, tearoff=0)
-    barre_menu_liste_déroulant.add_cascade(label="Fichier", menu=menu_fichier)
+    barre_menu_liste_déroulant.add_cascade(label=trad_aaaab[langue], menu=menu_fichier)
 
-    menu_fichier.add_command(label="Ouvrir", command=ouvrir_le_fihcier_fênetre)
+    menu_fichier.add_command(label=trad_aaaac[langue], command=ouvrir_le_fihcier_fênetre)
 
-    menu_fichier.add_command(label="Enregistrer sous", command=enregister_le_fichier_fênetre)
+    menu_fichier.add_command(label=trad_aaaad[langue], command=enregister_le_fichier_fênetre)
 
-    menu_fichier.add_command(label="Exporter", command=export)
+    menu_fichier.add_command(label=trad_aaaae[langue], command=export)
 
     # espace de code -----------------------------------
-    espace_de_code=LabelFrame(fênetre_éditeur_PyCreator, text="Espace de code")
-    code_frame=LabelFrame(espace_de_code, text="Code principal")
-    ajouter_une_ligne_bouton=Button(code_frame, text="Ajouter une ligne de code", command=ajouter_une_ligne).pack()
+    espace_de_code=LabelFrame(fênetre_éditeur_PyCreator, text=trad_aaaaf[langue])
+    code_frame=LabelFrame(espace_de_code, text=trad_aaaag[langue])
+    ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaaah[langue], command=ajouter_une_ligne).pack()
 
     espace_de_code.pack()
   
@@ -83,23 +84,23 @@ def ajouter_une_valeur():
         
         global chan_texte
         fênetre_str=Toplevel(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique)
-        fênetre_str.title("Chaine de caractère")
+        fênetre_str.title(trad_aaaai[langue])
         fênetre_str.grab_set()
         
-        texte_fênetre_str=Label(fênetre_str, text="Entrer une chaine de caractère. \n Pour sotter une ligne, utiliser le caractère d'échapement \\n, et si vous utiliser des guillmet double (\") ou simple ('), utiliser aussi le caractère d'échapement \\").pack()
+        texte_fênetre_str=Label(fênetre_str, text=trad_aaaaj[langue]).pack()
         chan_texte=Entry(fênetre_str, width=100)
         chan_texte.pack()
-        bouton_valider=Button(fênetre_str, text="Valider", command=valider_str).pack()
+        bouton_valider=Button(fênetre_str, text=trad_jaaaa[langue], command=valider_str).pack()
         fênetre_str.wait_window()
 
     global fênetre_ajouter_une_ligne_ecrire_dans_le_terminale
 
     fênetre_valeur=Toplevel(fênetre_ajouter_une_ligne_ecrire_dans_le_terminale)
-    fênetre_valeur.title("Ajouter une valeur")
+    fênetre_valeur.title(trad_aaaba[langue])
     fênetre_valeur.grab_set()
-    texte_fênetre_valeur=Label(fênetre_valeur, text="Choisiser votre valeur").pack()
-    frame_valeurs_littérales=LabelFrame(fênetre_valeur, text="Valeur littérales (constantes) :")
-    bouton_str=Button(frame_valeurs_littérales, text="Chaines de caractère \n str", command=chaine_str).pack()
+    texte_fênetre_valeur=Label(fênetre_valeur, text=trad_aaabb[langue]).pack()
+    frame_valeurs_littérales=LabelFrame(fênetre_valeur, text=trad_aaabc[langue])
+    bouton_str=Button(frame_valeurs_littérales, text=trad_aaabd[langue], command=chaine_str).pack()
     frame_valeurs_littérales.pack()
     fênetre_valeur.wait_window()
 
@@ -114,7 +115,7 @@ def ajouter_une_ligne():
             #global valeur_texte
             valeur_pour_print=valeur_tmp
             logging.debug("Valeur pour print : " + valeur_pour_print)
-            valeur_du_texte.set("Valeur : " + str(valeur_pour_print))
+            valeur_du_texte.set(trad_aaabe[langue] + str(valeur_pour_print))
         def valider():
             """Cette fonction valide le print"""
             ligne_de_code_tmp=f"print('{valeur_tmp}')"
@@ -132,25 +133,25 @@ def ajouter_une_ligne():
 
         fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique=Toplevel(fênetre_éditeur_PyCreator)
         fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.grab_set()
-        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.title("Ajouter une ligne - écrire dans le terminal")
-        texte_fênetre_print=Label(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text="Ecrire dans le terminal [valeur] \n Print() \n Cette fonction écrit dans le terminale une ou plusieurs lignes.").pack()
-        frame_valeur=LabelFrame(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text="Valeur :")
-        définire_la_valeur=Button(frame_valeur, text="Définire la valeur", command=définire_la_valeur).pack()
+        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.title(trad_aaabf[langue])
+        texte_fênetre_print=Label(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaabg[langue]).pack()
+        frame_valeur=LabelFrame(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaabh[langue])
+        définire_la_valeur=Button(frame_valeur, text=trad_jaaab[langue], command=définire_la_valeur).pack()
         valeur_du_texte = StringVar()
-        valeur_du_texte.set("Valeur : None")
+        valeur_du_texte.set(trad_aaabi[langue])
         valeur_texte=Label(frame_valeur, textvariable=valeur_du_texte)
         valeur_texte.pack()
         frame_valeur.pack()
-        valider=Button(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text="valider", command=valider).pack()
+        valider=Button(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_jaaaa[langue], command=valider).pack()
     
     global fênetre_ajouter_une_ligne
     
     fênetre_ajouter_une_ligne = Toplevel(fênetre_éditeur_PyCreator)
     fênetre_ajouter_une_ligne.grab_set()
-    fênetre_ajouter_une_ligne.title("Ajouter une ligne")
-    frame_commande_pyhton=LabelFrame(fênetre_ajouter_une_ligne, text="Ajouter une commande Python :")
+    fênetre_ajouter_une_ligne.title(trad_jaaac[langue])
+    frame_commande_pyhton=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaabj[langue])
     # bouton pour les fonction python :
-    bouton_ajouter_comande_print=Button(frame_commande_pyhton, text="Ecrire dans le terminal [valeur] \n Print()", command=bouton_print).pack()
+    bouton_ajouter_comande_print=Button(frame_commande_pyhton, text=trad_aaaca[langue], command=bouton_print).pack()
 
     frame_commande_pyhton.pack()
     
@@ -160,7 +161,7 @@ def mise_a_jours_interface_graphique():
     """Cette fonction permet de metre a jours l'interface graphique, donc d'ajouter / supprimer des lignes de code."""
     def ajouter_ligne_de_code_interface(élément_utiliser:int):
         """Cette fonction ajoute a l'interface graphique un ligne de code."""
-        nouvelle_ligne_de_code=LabelFrame(code_frame, text="Action :")
+        nouvelle_ligne_de_code=LabelFrame(code_frame, text=trad_jaaad[langue])
         texte_humain=Label(nouvelle_ligne_de_code, text=élément_utiliser["français"]).pack()
         texte_python=Label(nouvelle_ligne_de_code, text=élément_utiliser["Python"]).pack()
         nouvelle_ligne_de_code.pack()
@@ -168,11 +169,10 @@ def mise_a_jours_interface_graphique():
     global code_frame
     
     code_frame.destroy()
-    code_frame=LabelFrame(espace_de_code, text="Code principal")
+    code_frame=LabelFrame(espace_de_code, text=trad_aaacb[langue])
 
     for element in fichier:
         ajouter_ligne_de_code_interface(element)
         
-
-    ajouter_une_ligne_bouton=Button(code_frame, text="Ajouter une ligne de code", command=ajouter_une_ligne).pack()
+    ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaacc[langue], command=ajouter_une_ligne).pack()
     code_frame.pack()

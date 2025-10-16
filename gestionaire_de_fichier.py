@@ -8,6 +8,10 @@ from tkinter import ttk
 
 import ast
 
+from traduction import *
+
+langue="fr"
+
 def exporter_le_programme(fichier_liste):
     """Cette fonction crée un fichier python grace au fichier dans la liste"""
     logging.debug("entrer dans la fonction d'export")
@@ -19,8 +23,8 @@ def exporter_le_programme(fichier_liste):
 
     chemain_d_accé_fichier_export=filedialog.asksaveasfilename(
         defaultextension=".",
-        filetypes=[("Python code source", "*.py")],
-        title="Exporter en Python"
+        filetypes=[(trad_aaacd[langue], "*.py")],
+        title=trad_aaace[langue]
     )
     if chemain_d_accé_fichier_export!="":
         Path(chemain_d_accé_fichier_export).write_text(fichier_tmp)
@@ -32,15 +36,15 @@ def enregistrer_le_fichier(liste_fichier):
     """Enregistre le fichier en .PPyC"""
     chemain_d_accé_fichier=filedialog.asksaveasfilename(
         defaultextension=".",
-        filetypes=[("PyCreator file (Projet Py Creator)", "*.PPyC")],
-        title="Enregister le fihcier"
+        filetypes=[(trad_aaacf[langue], "*.PPyC")],
+        title=trad_aaacg[langue]
     )
     if chemain_d_accé_fichier!="":
         Path(chemain_d_accé_fichier).write_text(str(liste_fichier))
 
 def ouvrir_un_fichier_PPyC():
     """Cette fonction ouvre un fichier PPyC. Cela convertit le fichier en liste avec chaque élément en dicionnaire. Return cette liste."""
-    chemain_d_accé_fichier_ouverture=filedialog.askopenfilename(title="Ouvrir un fichier",filetypes=[("Fichier PyCreator", "*.PPyC")])
+    chemain_d_accé_fichier_ouverture=filedialog.askopenfilename(title=trad_aaach[langue],filetypes=[(trad_aaacf[langue], "*.PPyC")])
     logging.debug("chemain d'ouverture : " + chemain_d_accé_fichier_ouverture)
     if chemain_d_accé_fichier_ouverture!="":
         fichier_ouverture=open(chemain_d_accé_fichier_ouverture, "r", encoding="ANSI")

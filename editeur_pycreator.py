@@ -119,7 +119,7 @@ def ajouter_une_ligne():
         def valider():
             """Cette fonction valide le print"""
             ligne_de_code_tmp=f"print('{valeur_tmp}')"
-            fichier.append({"français":f"Ecrire dans le terminale {valeur_tmp}", "Python":ligne_de_code_tmp})
+            fichier.append({"humain":{"fr":f"Ecrire dans le terminale {valeur_tmp}", "en":f"Write in the terminal {valeur_tmp}"}, "Python":ligne_de_code_tmp})
             logging.debug("fichier : " + str(fichier))
             fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy()
             mise_a_jours_interface_graphique()
@@ -162,7 +162,7 @@ def mise_a_jours_interface_graphique():
     def ajouter_ligne_de_code_interface(élément_utiliser:int):
         """Cette fonction ajoute a l'interface graphique un ligne de code."""
         nouvelle_ligne_de_code=LabelFrame(code_frame, text=trad_jaaad[langue])
-        texte_humain=Label(nouvelle_ligne_de_code, text=élément_utiliser["français"]).pack()
+        texte_humain=Label(nouvelle_ligne_de_code, text=élément_utiliser["humain"][langue]).pack()
         texte_python=Label(nouvelle_ligne_de_code, text=élément_utiliser["Python"]).pack()
         nouvelle_ligne_de_code.pack()
 

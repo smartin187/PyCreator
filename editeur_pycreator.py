@@ -6,6 +6,7 @@ import logging
 
 from gestionaire_de_fichier import *
 from traduction import *
+import ast
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -13,31 +14,116 @@ fênetre_éditeur_PyCreator=None
 espace_de_code=None
 code_frame=None
 
-fichier=[]
-langue="fr"
+fichier=[{"documentation":""}]
+
+documentation_entrée_texte=None
+
+def apliquer_les_paramètre():
+    """Cette fonction applique les paramètre avec le fichier de paramètre"""
+    try:
+        paramètre_fichier_tmp=open("paramètre.txt", "r", encoding="ANSI")
+        
+        paramètre_tmp=paramètre_fichier_tmp.read()
+
+        paramètre_tmp=ast.literal_eval(paramètre_tmp)
+
+        logging.debug(paramètre_tmp)
+
+        global langue
+        if paramètre_tmp["langue"]=="Français":
+            langue="fr"
+        elif paramètre_tmp["langue"]=="English":
+            langue="en"
+    except:
+        logging.error("Imposible de charcher les paramètre depuis le fichier 'réglage.txt'")
+        langue="en"
+        Path("paramètre.txt").write_text(str({"langue":langue}))
+
+def modifier_les_paramètre(fênetre:str):
+    """Cette fonction gère la fênetre pour les paramètre"""
+    def avertissement_du_changement_de_paramètre():
+        """Cette fonction crée une fênetre d'avertissement sur les changement de paramètre, par exemple, si la langue est changé, les paramètre ne serons pas appliquer directement."""
+        avertissement_du_changement_de_paramètre_fênetre=Toplevel(fênetre_paramétre)
+        avertissement_du_changement_de_paramètre_fênetre.title(trad_aaada[langue])
+
+        texte_avertisement_paramètre=Label(avertissement_du_changement_de_paramètre_fênetre, text=trad_aaadb[langue]).pack()
+
+        avertissement_du_changement_de_paramètre_fênetre.grab_set()
+        avertissement_du_changement_de_paramètre_fênetre.wait_window()
+
+
+    def valider():
+        """Cette fonction gère la validation des paramètre"""
+        langue_tmp=liste_découlante_langue.get()
+
+        Path("paramètre.txt").write_text(str({"langue":langue_tmp}))
+        apliquer_les_paramètre()
+        
+        avertissement_du_changement_de_paramètre()
+        logging.debug("Fin de l'avertisement")
+        fênetre_paramétre.destroy()
+
+
+        
+
+    if fênetre=="éditeur":
+        fênetre_paramétre=Toplevel(fênetre_éditeur_PyCreator)
+    
+    fênetre_paramétre.title(trad_aaaci[langue])
+
+    texte_paramère=Label(fênetre_paramétre, text=trad_aaacj[langue])
+    texte_paramère.pack()
+    if langue=="fr":
+        langue_séléction=StringVar(value="Français")
+    else:
+        langue_séléction=StringVar(value="English")
+    liste_découlante_langue=ttk.Combobox(fênetre_paramétre, values=["English","Français"], state="readonly", textvariable=langue_séléction)
+    liste_découlante_langue.pack()
+
+    bouton_valider=Button(fênetre_paramétre, text=trad_jaaaa[langue], command=valider).pack()
+
+    fênetre_paramétre.grab_set()
+    fênetre_paramétre.wait_window()
+
 
 def éditeur_PyCreator():
     """Fonction principale de PyCreator"""
+    apliquer_les_paramètre() # on met a jour les paramètre a l'ouverture
+    
+    global documentation_entrée_texte
+
     def export():
         """Cette fonction appellèle l'autre fonciton d'export pour avoir l'argument."""
+        global fichier
+        fichier[1]["documentation"]=documentation_entrée_texte.get()
+        
         exporter_le_programme(fichier_liste=fichier)
     
     def enregister_le_fichier_fênetre():
         """Cette fonciton appèle l'autre fonction d'export pour avoir l'argument."""
+        fichier[0]["documentation"]=documentation_entrée_texte.get()
+        
         enregistrer_le_fichier(liste_fichier=fichier)
     
     def ouvrir_le_fihcier_fênetre():
         """Cette fonction appèlle l'autre fonction d'ouverture pour avoir le retour"""
         global fichier
         fichier=ouvrir_un_fichier_PPyC()
+
         mise_a_jours_interface_graphique()
     
+    def paramètre():
+        """Cette fonction apèle la fonction de paramètra pour odnné l'argument"""
+        modifier_les_paramètre(fênetre="éditeur")
+
     global fênetre_éditeur_PyCreator
     global espace_de_code
     global code_frame
 
     fênetre_éditeur_PyCreator=Tk()
     fênetre_éditeur_PyCreator.title(trad_aaaaa[langue])
+
+    fênetre_éditeur_PyCreator.geometry("600x500")
 
     barre_menu_liste_déroulant = Menu(fênetre_éditeur_PyCreator)
     fênetre_éditeur_PyCreator.config(menu=barre_menu_liste_déroulant)
@@ -51,16 +137,26 @@ def éditeur_PyCreator():
 
     menu_fichier.add_command(label=trad_aaaae[langue], command=export)
 
+    menu_fichier.add_command(label=trad_aaaci[langue], command=paramètre)
+
     # espace de code -----------------------------------
     espace_de_code=LabelFrame(fênetre_éditeur_PyCreator, text=trad_aaaaf[langue])
     code_frame=LabelFrame(espace_de_code, text=trad_aaaag[langue])
     ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaaah[langue], command=ajouter_une_ligne).pack()
 
-    espace_de_code.pack()
+    espace_de_code.grid(column=0, row=0, sticky="nsew")
   
     code_frame.pack()
 
+    # documentation du projet ------------------------------
+
+    documentation_frame=LabelFrame(fênetre_éditeur_PyCreator, text=trad_aaade[langue])
+    texte_documentation_frame=Label(documentation_frame, text=trad_aaadf[langue]).pack()
     
+    documentation_entrée_texte=Entry(documentation_frame)
+    documentation_entrée_texte.pack()
+
+    documentation_frame.grid(column=1, row=0, sticky="nsew")
 
     fênetre_éditeur_PyCreator.mainloop()
 
@@ -171,8 +267,18 @@ def mise_a_jours_interface_graphique():
     code_frame.destroy()
     code_frame=LabelFrame(espace_de_code, text=trad_aaacb[langue])
 
-    for element in fichier:
+    ajout_des_action=fichier[1:len(fichier)]
+    logging.debug("Fichier mis a jour : " + str(fichier))
+    logging.debug("Ajout des action : " + str(ajout_des_action))
+    for element in ajout_des_action:
         ajouter_ligne_de_code_interface(element)
-        
+    
+
+
+    documentation_entrée_texte.delete(0, END)
+    
+    logging.debug("Documentation du projet : " + fichier[0]["documentation"])
+    documentation_entrée_texte.insert(0, fichier[0]["documentation"])
+
     ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaacc[langue], command=ajouter_une_ligne).pack()
     code_frame.pack()

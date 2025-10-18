@@ -77,4 +77,14 @@ trad_aaacg={"fr":"Enregister le fihcier", "en":"Save the file"}
 
 trad_aaach={"fr":"Ouvrir un fichier", "en":"Open a file"}
 
+trad_aaaci={"fr":"Paramètre", "en":"Setting"}
 
+trad_aaacj={"fr":"Vous pouvez paramétrer PyCreator. \n Attention : les paramètre sont enregistrer dans le fichier 'Réglage.txt', si vous supprimer ou déplacer ce fichier, cela peut causer des erreur.", "en":"You can set settings of PyCreator. \n Warning : settings are saved in the file 'réglage.txt', please dont delet or move it, it can cause error."}
+
+trad_aaada={"fr":"Modification des paramètre", "en":"Settings modification"}
+
+trad_aaadb={"fr":"Attention :\n Si vous avez modifier certain paramètre, comme la langue, ils ne seront pas pris en conte jusqu'à la prochaine ouverture. \n Pour éviter les erreur et que vos paramètre soit entièrement apliquer, redémarer l'aplication \n \n Par exemple, pour la langue, certaine fênetre ne seron mis a jour uniquement au prochain démarage de l'application.", "en":"Warning:\n If you have changed certain settings, such as the language, they will not be applied until the next launch. \n To avoid errors and ensure your settings are fully applied, restart the application. \n \n For example, for the language, some windows will only be updated at the next application startup."}
+
+trad_aaade={"fr":"Documentation du projet :", "en":"Project documentation:"}
+
+trad_aaadf={"fr":"Vous pouvez mettre la documentation de votre projet. \n Cette documentation est mise au début du fichier Python. \n Elle sera mise dans une docstring (\"\"\" \"\"\")", "en":"You can add your project's documentation. \n This documentation is placed at the beginning of the Python file. \n It will be included in a docstring (\"\"\" \"\"\")"}

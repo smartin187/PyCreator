@@ -12,11 +12,19 @@ from traduction import *
 
 langue="fr"
 
+texte_de_début_du_programme="# Ce programme a étais générer par PyCreator \n # Si vous souhaiter publier ce programme, veuiller mentionner PyCreator \n \n"
+
 def exporter_le_programme(fichier_liste):
     """Cette fonction crée un fichier python grace au fichier dans la liste"""
     logging.debug("entrer dans la fonction d'export")
     fichier_tmp=""
-    for element in fichier_liste:
+    fichier_tmp=fichier_tmp+texte_de_début_du_programme
+    
+    liste_des_action=fichier_liste[1:len(fichier_liste)]
+    
+    fichier_tmp=fichier_tmp+"\"\"\""+fichier_liste[1]["documentation"]+"\"\"\"\n"
+
+    for element in liste_des_action:
         fichier_tmp=fichier_tmp+element["Python"]+"\n"
     
     logging.debug(fichier_tmp)

@@ -48,6 +48,8 @@ def modifier_les_paramètre(fênetre:str):
 
         texte_avertisement_paramètre=Label(avertissement_du_changement_de_paramètre_fênetre, text=trad_aaadb[langue]).pack()
 
+        bouton_pour_avertisement_paramètre=Button(avertissement_du_changement_de_paramètre_fênetre, text=trad_jaaaa[langue], command=avertissement_du_changement_de_paramètre_fênetre.destroy).pack()
+
         avertissement_du_changement_de_paramètre_fênetre.grab_set()
         avertissement_du_changement_de_paramètre_fênetre.wait_window()
 
@@ -137,14 +139,18 @@ def éditeur_PyCreator():
 
     menu_fichier.add_command(label=trad_aaaae[langue], command=export)
 
-    menu_fichier.add_command(label=trad_aaaci[langue], command=paramètre)
+    menu_PyCreator = Menu(barre_menu_liste_déroulant, tearoff=0)
+
+    barre_menu_liste_déroulant.add_cascade(label=trad_jaaae[langue], menu=menu_PyCreator)
+
+    menu_PyCreator.add_command(label=trad_aaaci[langue], command=paramètre)
 
     # espace de code -----------------------------------
     espace_de_code=LabelFrame(fênetre_éditeur_PyCreator, text=trad_aaaaf[langue])
     code_frame=LabelFrame(espace_de_code, text=trad_aaaag[langue])
     ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaaah[langue], command=ajouter_une_ligne).pack()
 
-    espace_de_code.grid(column=0, row=0, sticky="nsew")
+    espace_de_code.grid(column=0, row=0, rowspan=2, sticky="nsew")
   
     code_frame.pack()
 

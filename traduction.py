@@ -14,6 +14,8 @@ trad_jaaac={"fr":"Ajouter une ligne", "en":"Add a line"}
 
 trad_jaaad={"fr":"Action :", "en":"Action:"}
 
+trad_jaaae={"fr":"PyCreator", "en":"PyCreator"}
+
 # traduction :
 
 trad_aaaaa={"fr":"PyCreator - éditeur", "en":"PyCreator - editor"}

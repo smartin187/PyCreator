@@ -12,7 +12,7 @@ from traduction import *
 
 langue="fr"
 
-texte_de_début_du_programme="# Ce programme a étais générer par PyCreator \n # Si vous souhaiter publier ce programme, veuiller mentionner PyCreator \n \n"
+texte_de_début_du_programme="# Ce programme a etais generer par PyCreator\n# https://github.com/smartin187/PyCreator\n# Si vous souhaiter publier ce programme, veuiller mentionner PyCreator\n\n"
 
 def exporter_le_programme(fichier_liste):
     """Cette fonction crée un fichier python grace au fichier dans la liste"""
@@ -22,7 +22,12 @@ def exporter_le_programme(fichier_liste):
     
     liste_des_action=fichier_liste[1:len(fichier_liste)]
     
-    fichier_tmp=fichier_tmp+"\"\"\""+fichier_liste[1]["documentation"]+"\"\"\"\n"
+    fichier_tmp=fichier_tmp+"\"\"\""+fichier_liste[1]["documentation"]+"\"\"\"\n\n\n"
+
+    for element_de_variable in fichier_liste[0]["variables"]:
+        fichier_tmp=fichier_tmp + element_de_variable["Nom"] + "=" + element_de_variable["Valeur par défaut"] + "\n"
+
+    fichier_tmp=fichier_tmp+"\n\n"
 
     for element in liste_des_action:
         fichier_tmp=fichier_tmp+element["Python"]+"\n"

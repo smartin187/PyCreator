@@ -16,6 +16,14 @@ trad_jaaad={"fr":"Action :", "en":"Action:"}
 
 trad_jaaae={"fr":"PyCreator", "en":"PyCreator"}
 
+trad_jaaaf={"fr":"Anuler", "en":"Cancel"}
+
+trad_jaaag={"fr":"Non", "en":"No"}
+
+trad_jaaah={"fr":"Oui", "en":"Yes"}
+
+trad_jaaai={"fr":"Ok", "en":"Ok"}
+
 # traduction :
 
 trad_aaaaa={"fr":"PyCreator - éditeur", "en":"PyCreator - editor"}
@@ -51,7 +59,7 @@ trad_aaabe={"fr":"Valeur : ", "en":"Value:"}
 
 trad_aaabf={"fr":"Ajouter une ligne - écrire dans le terminal", "en":"Add a line - write in the terminal"}
 
-trad_aaabg={"fr":"Ecrire dans le terminal [valeur] \n Print() \n Cette fonction écrit dans le terminale une ou plusieurs lignes." , "en":"Write in the terminal [value] \n Print() \n This function writes one or more lines in the terminal."}
+trad_aaabg={"fr":"Ecrire dans le terminal [valeur] \n Print(<valeur>) \n Cette fonction écrit dans le terminale une ou plusieurs lignes." , "en":"Write in the terminal [value] \n Print(<value>) \n This function writes one or more lines in the terminal."}
 
 trad_aaabh={"fr":"Valeur :", "en":"Value:"}
 
@@ -59,15 +67,11 @@ trad_aaabi={"fr":"Valeur : ''", "en":"Value: ''"}
 
 trad_aaabj={"fr":"Ajouter une commande Python :", "en":"Add a Python command:"}
 
-trad_aaaca={"fr":"Ecrire dans le terminal [valeur] \n Print()", "en":"Write in the terminal [value] \n Print()"}
+trad_aaaca={"fr":"Ecrire dans le terminal [valeur] \n Print(<valeur>)", "en":"Write in the terminal [value] \n Print(<value>)"}
 
 trad_aaacb={"fr":"Code principal", "en":"Main code"}
 
 trad_aaacc={"fr":"Ajouter une ligne de code", "en":"Add a line of code"}
-
-
-
-# traduction pour le gestionaire de fichier :
 
 trad_aaacd={"fr":"Code source Python", "en":"Python source code"}
 
@@ -90,3 +94,33 @@ trad_aaadb={"fr":"Attention :\n Si vous avez modifier certain paramètre, comme 
 trad_aaade={"fr":"Documentation du projet :", "en":"Project documentation:"}
 
 trad_aaadf={"fr":"Vous pouvez mettre la documentation de votre projet. \n Cette documentation est mise au début du fichier Python. \n Elle sera mise dans une docstring (\"\"\" \"\"\")", "en":"You can add your project's documentation. \n This documentation is placed at the beginning of the Python file. \n It will be included in a docstring (\"\"\" \"\"\")"}
+
+trad_aaadg={"fr":"Variables", "en":"Variables"}
+
+trad_aaadh={"fr":"Valeurs", "en":"Values"}
+
+trad_aaadi={"fr":"Crée une variable", "en":"Make a variable"}
+
+trad_aaadj={"fr":"Entrer le nom de votre variable. Le nom de votre variable doit contenire uniquement des lettre (majuscule ou minuscule), et le caractère '_'.\nTout les autre caractère ne fonctionneront pas, et causeront des erreurs.\nSi vous vouler mettre des espace, utiliser plustot '_'.", "en":"Enter the name of your variable. The variable name must contain only letters (uppercase or lowercase) and the '_' character.\nAll other characters will not work and will cause errors.\nIf you want to include spaces, use '_' instead."}
+
+trad_aaaea={"fr":"Vouler vous mettre une valeur par défaut a votre variable ?\nSi vous ne metter pas de valeur par défaut, quand la variable sera crée, elle sera None (absance de valeur).", "en":"Do you want to set a default value for your variable?\nIf you don't set a default value, when the variable is created it will be None (no value)."}
+
+trad_aaaeb={"fr":"Mettre [variable] à [valeur]\n<variable> = <valeur>", "en":"Set [variable] to [value]\n<variable> = <value>"}
+
+trad_aaaec={"fr":"Ajouter une ligne - Mettre une variable à une valeur", "en":"Add a line - Set a variable to a value"}
+
+trad_aaaed={"fr":"Mettre [variable à [valeur]\n<variable> = <valeur>\nMet à une variable une valeur.", "en":"Set [variable] to [value]\n<variable> = <value>\nSet a variable to a value."}
+
+trad_aaaee={"fr":"Choisiser une variable", "en":"Chose a variable"}
+
+trad_aaaef={"fr":"Imposible de mettre la valeur", "en":"Impossible to set the value"}
+
+trad_aaaeg={"fr":"Vous n'avez pas crée de variable, il n'est donc pas posible de mettre une valeur a une variable.", "en":"You have not created any variable, so it is not possible to set a value to a variable."}
+
+trad_aaaeh={"fr":"Aucune variable séléctionner", "en":"No variable select"}
+
+trad_aaaei={"fr":"Vous n'avez pas séléctionner de variable dans la liste déroulante.\nVous devez en séléctionner une pour faire cette action.\nSi vous n'avez pas crée de variable, vous pouvez le faire en cliquant sur le bouton 'Crée une variable'", "en":"You have not selected a variable in the dropdown list.\nYou must select one to perform this action.\nIf you have not created a variable, you can do so by clicking the 'Make a variable' button."}
+
+trad_aaaej={"fr":"Valeur d'une variable", "en":"Value of an variable"}
+
+trad_aaafa={"fr":"Vous n'avez pas crée de variable, vous ne pouvez donc pas mettre une valeur à une variable.", "en":"You have not created any variable, so you cannot set a value to a variable."}

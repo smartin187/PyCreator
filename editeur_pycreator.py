@@ -14,7 +14,8 @@ fênetre_éditeur_PyCreator=None
 espace_de_code=None
 code_frame=None
 
-fichier=[{"documentation":""}]
+fichier=None
+
 
 documentation_entrée_texte=None
 
@@ -91,7 +92,10 @@ def modifier_les_paramètre(fênetre:str):
 def éditeur_PyCreator():
     """Fonction principale de PyCreator"""
     apliquer_les_paramètre() # on met a jour les paramètre a l'ouverture
-    
+    global fichier
+
+    fichier=[{"documentation":"", "variables":[]}]
+
     global documentation_entrée_texte
 
     def export():
@@ -125,7 +129,7 @@ def éditeur_PyCreator():
     fênetre_éditeur_PyCreator=Tk()
     fênetre_éditeur_PyCreator.title(trad_aaaaa[langue])
 
-    fênetre_éditeur_PyCreator.geometry("600x500")
+    fênetre_éditeur_PyCreator.geometry("800x600")
 
     barre_menu_liste_déroulant = Menu(fênetre_éditeur_PyCreator)
     fênetre_éditeur_PyCreator.config(menu=barre_menu_liste_déroulant)
@@ -145,12 +149,31 @@ def éditeur_PyCreator():
 
     menu_PyCreator.add_command(label=trad_aaaci[langue], command=paramètre)
 
+    # valeur -------------------------------
+
+    valeur_frame=LabelFrame(fênetre_éditeur_PyCreator, text=trad_aaadh[langue])
+
+    # les variable
+
+    variable_frame=LabelFrame(valeur_frame, text=trad_aaadg[langue])
+
+    #liste_des_variable_graphique=Listbox(variable_frame)
+
+    #liste_des_variable_graphique.grid(column=0, row=0)
+
+    bouton_ajouter_une_variable=Button(variable_frame, text=trad_aaadi[langue], command=crée_une_variable).grid(column=0, row=1)
+
+    variable_frame.pack()
+
+    valeur_frame.grid(column=0, row=0, padx=5)
+    
+    
     # espace de code -----------------------------------
     espace_de_code=LabelFrame(fênetre_éditeur_PyCreator, text=trad_aaaaf[langue])
     code_frame=LabelFrame(espace_de_code, text=trad_aaaag[langue])
     ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaaah[langue], command=ajouter_une_ligne).pack()
 
-    espace_de_code.grid(column=0, row=0, rowspan=2, sticky="nsew")
+    espace_de_code.grid(column=1, row=0, rowspan=2, padx=5, sticky="nsew")
   
     code_frame.pack()
 
@@ -162,7 +185,7 @@ def éditeur_PyCreator():
     documentation_entrée_texte=Entry(documentation_frame)
     documentation_entrée_texte.pack()
 
-    documentation_frame.grid(column=1, row=0, sticky="nsew")
+    documentation_frame.grid(column=2, row=0, padx=5, sticky="nsew")
 
     fênetre_éditeur_PyCreator.mainloop()
 
@@ -171,15 +194,63 @@ fênetre_ajouter_une_ligne=None
 valeur_tmp=None
 fênetre_ajouter_une_ligne_ecrire_dans_le_terminale=None
 fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique=None
-def ajouter_une_valeur():
-    """Cette fonction est appelé pour ajouter une valeur"""
+
+def crée_une_variable():
+    """Cette fonction crée une variable."""
+    def valider_la_variable():
+        """Cette fonction est appelé quand l'utilisateur clique sur le bouton valider.
+        Cela ouvre une fênetre pour définire la valeur par défaut.
+        """
+        def action_pour_le_bouton_non():
+            """Cette fonction est apelé par le bouton 'non'. Elle met donc la valeur par défaut de la variable à None."""
+            variable_tmp["Valeur"]="None"
+            fênetre_valeur_par_défaut.destroy()
+            fichier[0]["variables"].append({"Nom":variable_tmp["Nom"], "Valeur par défaut":variable_tmp["Valeur"]})
+
+
+        variable_tmp={"Nom":"", "Valeur":""}
+
+        variable_tmp["Nom"]=chan_texte_nom_de_variable.get()
+
+        fênetre_crée_variable.destroy()
+
+        fênetre_valeur_par_défaut=Toplevel(fênetre_éditeur_PyCreator)
+        fênetre_valeur_par_défaut.title(trad_aaadi[langue])
+
+        texte_valeur_défaut_variable=Label(fênetre_valeur_par_défaut, text=trad_aaaea[langue]).pack()
+
+        # bouton oui/non :
+
+        bouton_non=Button(fênetre_valeur_par_défaut, text=trad_jaaag[langue], command=action_pour_le_bouton_non).pack()
+
+        fênetre_valeur_par_défaut.grab_set()
+        fênetre_valeur_par_défaut.wait_window()
     
+    fênetre_crée_variable=Toplevel(fênetre_éditeur_PyCreator)
+
+    fênetre_crée_variable.title(trad_aaadi[langue])
+
+    texte_création_de_variable=Label(fênetre_crée_variable, text=trad_aaadj[langue]).grid(column=0, columnspan=2, row=0)
+    
+    chan_texte_nom_de_variable=Entry(fênetre_crée_variable)
+    chan_texte_nom_de_variable.grid(column=0, row=1, columnspan=2)
+
+    bouton_valider=Button(fênetre_crée_variable, text=trad_jaaaa[langue], command=valider_la_variable).grid(column=0, row=2)
+    bouton_annuler=Button(fênetre_crée_variable, text=trad_jaaaf[langue], command=fênetre_crée_variable.destroy).grid(column=1, row=2)
+
+    fênetre_crée_variable.grab_set()
+    fênetre_crée_variable.wait_window()
+    
+
+def ajouter_une_valeur():
+    """Cette fonction est appelé pour ajouter une valeur. Elle ouvre une fênetre avec des bouton pour choisire quelle valeur il veut."""
     def chaine_str():
         """Cette fonction permet la définition d'une chaine de caractère."""
         def valider_str():
             """Cette fonction est appelé quand l'utilisateur clique sur validé"""
             global valeur_tmp
             valeur_tmp=chan_texte.get()
+            valeur_tmp="'" + valeur_tmp + "'"
             logging.debug(valeur_tmp)
             fênetre_str.destroy()
         fênetre_valeur.destroy()
@@ -195,20 +266,82 @@ def ajouter_une_valeur():
         bouton_valider=Button(fênetre_str, text=trad_jaaaa[langue], command=valider_str).pack()
         fênetre_str.wait_window()
 
+    def valeur_variable():
+        """Cette fonction ouvre la fênetre pour choisire quelle variable l'utilisateur utilise la valeur."""
+        fênetre_valeur.destroy()
+
+        def valider_mise_valeur_variable():
+            """Cette fonction est appelé par le bouton 'valider'. Cela controle que l'utilisateur ai bien séléctionner une variable. Ensuite, la valeur est mise dans la variable 'valeur_tmp'."""
+            nom_variable_tmp=liste_déroulante_variable.get()
+
+            if nom_variable_tmp=="":        # l'utilisateur n'a pas sésit de variable.
+                erreur_saisit_de_variable=Toplevel(fênetre_valeur_variable)
+                erreur_saisit_de_variable.title(trad_aaaeh[langue])
+
+                texte_erreur_saisit_de_variable=Label(erreur_saisit_de_variable, text=trad_aaaei[langue]).pack()
+
+                bouton_ok_erreur_varaible=Button(erreur_saisit_de_variable, text=trad_jaaai, command=erreur_saisit_de_variable.destroy).pack()
+
+                erreur_saisit_de_variable.grab_set()
+                erreur_saisit_de_variable.wait_window()
+
+            else:
+                global valeur_tmp
+
+                valeur_tmp=nom_variable_tmp
+                fênetre_valeur_variable.destroy()
+
+        if fichier[0]["variables"]==[]:     # pas de variables
+            fênetre_erreur_pas_de_variable=Toplevel(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique)
+            fênetre_erreur_pas_de_variable.title(trad_aaaef[langue])
+            texte_erreur_variable=Label(fênetre_erreur_pas_de_variable, text=trad_aaafa[langue]).pack()
+            bouton_ok=Button(fênetre_erreur_pas_de_variable, text=trad_jaaai[langue], command=fênetre_erreur_pas_de_variable.destroy).pack()
+            fênetre_erreur_pas_de_variable.grab_set()
+            fênetre_erreur_pas_de_variable.wait_window()
+
+        else:
+            fênetre_valeur_variable=Toplevel(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique)
+            fênetre_valeur_variable.title(trad_aaaej[langue])
+
+            liste_variable_tmp=[]
+
+            for element in fichier[0]["variables"]:
+                liste_variable_tmp.append(element["Nom"])
+
+            frame_choi_variable=LabelFrame(fênetre_valeur_variable, text=trad_aaaee[langue])
+            liste_déroulante_variable=ttk.Combobox(frame_choi_variable, values=liste_variable_tmp, state="readonly")
+            liste_déroulante_variable.pack()
+            frame_choi_variable.pack()
+
+            bouton_valider=Button(fênetre_valeur_variable, text=trad_jaaaa[langue], command=valider_mise_valeur_variable).pack()
+
+            fênetre_valeur_variable.grab_set()
+            fênetre_valeur_variable.wait_window()
+
+
     global fênetre_ajouter_une_ligne_ecrire_dans_le_terminale
 
     fênetre_valeur=Toplevel(fênetre_ajouter_une_ligne_ecrire_dans_le_terminale)
     fênetre_valeur.title(trad_aaaba[langue])
     fênetre_valeur.grab_set()
     texte_fênetre_valeur=Label(fênetre_valeur, text=trad_aaabb[langue]).pack()
+
     frame_valeurs_littérales=LabelFrame(fênetre_valeur, text=trad_aaabc[langue])
     bouton_str=Button(frame_valeurs_littérales, text=trad_aaabd[langue], command=chaine_str).pack()
     frame_valeurs_littérales.pack()
+
+    frame_variable=LabelFrame(fênetre_valeur, text=trad_aaadg[langue])
+
+    bouton_valeur_de_la_variable=Button(frame_variable, text=trad_aaaej[langue], command=valeur_variable).pack()
+
+    frame_variable.pack()
+
     fênetre_valeur.wait_window()
 
 valeur_texte=None
 def ajouter_une_ligne():
     """Cette fonction gère l'ajout d'une ligne de code"""
+    logging.debug("Ajouter une ligne")
     def bouton_print():
         """Cette fonction est apelé quand l'utilisateur clique sur le bouton print."""
         def définire_la_valeur():
@@ -220,13 +353,15 @@ def ajouter_une_ligne():
             valeur_du_texte.set(trad_aaabe[langue] + str(valeur_pour_print))
         def valider():
             """Cette fonction valide le print"""
-            ligne_de_code_tmp=f"print('{valeur_tmp}')"
+            ligne_de_code_tmp=f"print({valeur_tmp})"
             fichier.append({"humain":{"fr":f"Ecrire dans le terminale {valeur_tmp}", "en":f"Write in the terminal {valeur_tmp}"}, "Python":ligne_de_code_tmp})
             logging.debug("fichier : " + str(fichier))
             fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy()
             mise_a_jours_interface_graphique()
 
-        
+        global valeur_tmp
+        valeur_tmp=""
+
         global valeur_texte
         global fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique
         valeur_pour_print=None
@@ -235,8 +370,11 @@ def ajouter_une_ligne():
 
         fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique=Toplevel(fênetre_éditeur_PyCreator)
         fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.grab_set()
+
         fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.title(trad_aaabf[langue])
+
         texte_fênetre_print=Label(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaabg[langue]).pack()
+
         frame_valeur=LabelFrame(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaabh[langue])
         définire_la_valeur=Button(frame_valeur, text=trad_jaaab[langue], command=définire_la_valeur).pack()
         valeur_du_texte = StringVar()
@@ -246,19 +384,98 @@ def ajouter_une_ligne():
         frame_valeur.pack()
         valider=Button(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_jaaaa[langue], command=valider).pack()
     
+    def bouton_mettre_variable_valeur():
+        """Cette fonction permet de géré la fênetre pour la mise à une valeur d'une variable."""
+        def définire_la_valeur():
+            """Cette fonction définit la valeur du print"""
+            ajouter_une_valeur()
+            
+            valeur_pour_print=valeur_tmp
+            logging.debug("Valeur pour print : " + valeur_pour_print)
+            valeur_du_texte.set(trad_aaabe[langue] + str(valeur_pour_print))
+        
+        def valider():
+            """Cette fonction valide le print"""
+            nom_variable_tmp=liste_déroulante_variable.get()
+            if nom_variable_tmp=="":             # l'utilisateur n'a pas sésit de variable
+                logging.debug("l'utilisateur n'a pas césit de variable")
+                erreur_variable_nom=Toplevel(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique)
+                erreur_variable_nom.title(trad_aaaeh[langue])
+                texte_erreur_variable_séléction=Label(erreur_variable_nom, text=trad_aaaei[langue]).pack()
+
+                bouton_valider=Button(erreur_variable_nom, text=trad_jaaai[langue], command=erreur_variable_nom.destroy).pack()
+
+                erreur_variable_nom.grab_set()
+                erreur_variable_nom.wait_window()
+
+            else:
+                ligne_de_code_tmp=f"{nom_variable_tmp} = {valeur_tmp}"
+                fichier.append({"humain":{"fr":f"Mettre la variable {nom_variable_tmp} à {valeur_tmp}", "en":f"Set the variable {nom_variable_tmp} to {valeur_tmp}"}, "Python":ligne_de_code_tmp})
+                logging.debug("fichier : " + str(fichier))
+                fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy()
+                mise_a_jours_interface_graphique()
+
+        # controle qu'il y ai bien des variable :
+
+        if fichier[0]["variables"]==[]:     # pas de variables
+            fênetre_erreur_pas_de_variable=Toplevel(fênetre_éditeur_PyCreator)
+            fênetre_erreur_pas_de_variable.title(trad_aaaef[langue])
+            texte_erreur_variable=Label(fênetre_erreur_pas_de_variable, text=trad_aaaeg[langue]).pack()
+            bouton_ok=Button(fênetre_erreur_pas_de_variable, text=trad_jaaai[langue], command=fênetre_erreur_pas_de_variable.destroy).pack()
+            fênetre_erreur_pas_de_variable.grab_set()
+            fênetre_erreur_pas_de_variable.wait_window()
+
+        else:
+            global valeur_tmp
+            valeur_tmp=""
+            
+            global valeur_texte
+            global fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique
+            valeur_pour_print=None
+            global fênetre_ajouter_une_ligne
+            fênetre_ajouter_une_ligne.destroy()
+
+            fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique=Toplevel(fênetre_éditeur_PyCreator)
+            fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.grab_set()
+
+            fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.title(trad_aaaec[langue])
+
+            texte_fênetre_variable=Label(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaaed[langue]).pack()
+
+            frame_choi_variable=LabelFrame(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaaee[langue])
+            liste_variable_tmp=[]
+
+            for element in fichier[0]["variables"]:
+                liste_variable_tmp.append(element["Nom"])
+            
+            liste_déroulante_variable=ttk.Combobox(frame_choi_variable, values=liste_variable_tmp, state="readonly")
+            liste_déroulante_variable.pack()
+            frame_choi_variable.pack()
+
+            frame_valeur=LabelFrame(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaabh[langue])
+            définire_la_valeur=Button(frame_valeur, text=trad_jaaab[langue], command=définire_la_valeur).pack()
+            valeur_du_texte = StringVar()
+            valeur_du_texte.set(trad_aaabi[langue])
+            valeur_texte=Label(frame_valeur, textvariable=valeur_du_texte)
+            valeur_texte.pack()
+            frame_valeur.pack()
+            valider=Button(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_jaaaa[langue], command=valider).pack()
     global fênetre_ajouter_une_ligne
-    
+
     fênetre_ajouter_une_ligne = Toplevel(fênetre_éditeur_PyCreator)
     fênetre_ajouter_une_ligne.grab_set()
     fênetre_ajouter_une_ligne.title(trad_jaaac[langue])
     frame_commande_pyhton=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaabj[langue])
+    frame_variable=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaadg[langue])
     # bouton pour les fonction python :
     bouton_ajouter_comande_print=Button(frame_commande_pyhton, text=trad_aaaca[langue], command=bouton_print).pack()
+    # bouton pour les variables :
+    bouton_ajouter_command_changer_la_valeur_d_une_variable=Button(frame_variable, text=trad_aaaeb[langue], command=bouton_mettre_variable_valeur).pack()
 
     frame_commande_pyhton.pack()
+    frame_variable.pack()
     
     
-
 def mise_a_jours_interface_graphique():
     """Cette fonction permet de metre a jours l'interface graphique, donc d'ajouter / supprimer des lignes de code."""
     def ajouter_ligne_de_code_interface(élément_utiliser:int):

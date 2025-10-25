@@ -101,22 +101,24 @@ def éditeur_PyCreator():
     def export():
         """Cette fonction appellèle l'autre fonciton d'export pour avoir l'argument."""
         global fichier
-        fichier[1]["documentation"]=documentation_entrée_texte.get()
+        fichier[0]["documentation"]=documentation_entrée_texte.get()
         
-        exporter_le_programme(fichier_liste=fichier)
+        exporter_le_programme(fichier_liste=fichier, langue_pour_gestionaire_de_fichier=langue)
     
     def enregister_le_fichier_fênetre():
         """Cette fonciton appèle l'autre fonction d'export pour avoir l'argument."""
         fichier[0]["documentation"]=documentation_entrée_texte.get()
         
-        enregistrer_le_fichier(liste_fichier=fichier)
+        enregistrer_le_fichier(liste_fichier=fichier, langue_pour_gestionaire_de_fichier=langue)
     
     def ouvrir_le_fihcier_fênetre():
         """Cette fonction appèlle l'autre fonction d'ouverture pour avoir le retour"""
         global fichier
-        fichier=ouvrir_un_fichier_PPyC()
+        fichier_tmp_pour_ouverture=ouvrir_un_fichier_PPyC(langue_pour_gestionaire_de_fichier=langue)
 
-        mise_a_jours_interface_graphique()
+        if fichier_tmp_pour_ouverture!="Annuler":
+            fichier=fichier_tmp_pour_ouverture
+            mise_a_jours_interface_graphique()
     
     def paramètre():
         """Cette fonction apèle la fonction de paramètra pour odnné l'argument"""

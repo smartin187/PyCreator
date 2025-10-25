@@ -43,7 +43,7 @@ def exporter_le_programme(fichier_liste, langue_pour_gestionaire_de_fichier):
         title=trad_aaace[langue]
     )
     if chemain_d_accé_fichier_export!="":
-        Path(chemain_d_accé_fichier_export).write_text(fichier_tmp)
+        Path(chemain_d_accé_fichier_export).write_text(fichier_tmp, encoding='utf-8')
 
 
 
@@ -59,7 +59,7 @@ def enregistrer_le_fichier(liste_fichier, langue_pour_gestionaire_de_fichier):
         title=trad_aaacg[langue]
     )
     if chemain_d_accé_fichier!="":
-        Path(chemain_d_accé_fichier).write_text(str(liste_fichier))
+        Path(chemain_d_accé_fichier).write_text(str(liste_fichier), encoding='utf-8')
 
 def ouvrir_un_fichier_PPyC(langue_pour_gestionaire_de_fichier):
     """Cette fonction ouvre un fichier PPyC. Cela convertit le fichier en liste avec chaque élément en dicionnaire. Return cette liste."""
@@ -69,7 +69,7 @@ def ouvrir_un_fichier_PPyC(langue_pour_gestionaire_de_fichier):
     chemain_d_accé_fichier_ouverture=filedialog.askopenfilename(title=trad_aaach[langue],filetypes=[(trad_aaacf[langue], "*.PPyC")])
     logging.debug("chemain d'ouverture : " + chemain_d_accé_fichier_ouverture)
     if chemain_d_accé_fichier_ouverture!="":
-        fichier_ouverture=open(chemain_d_accé_fichier_ouverture, "r", encoding="ANSI")
+        fichier_ouverture=open(chemain_d_accé_fichier_ouverture, "r", encoding="utf-8")
         fichier_tmp_pour_ouverture=fichier_ouverture.read()
 
         fichier_convertit_en_liste = ast.literal_eval(fichier_tmp_pour_ouverture)

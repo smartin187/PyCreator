@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 fênetre_éditeur_PyCreator=None
 espace_de_code=None
 code_frame=None
-
+liste_des_variable_graphique=None
 fichier=None
 
 
@@ -159,9 +159,11 @@ def éditeur_PyCreator():
 
     variable_frame=LabelFrame(valeur_frame, text=trad_aaadg[langue])
 
-    #liste_des_variable_graphique=Listbox(variable_frame)
+    global liste_des_variable_graphique
 
-    #liste_des_variable_graphique.grid(column=0, row=0)
+    liste_des_variable_graphique=Listbox(variable_frame)
+
+    liste_des_variable_graphique.grid(column=0, row=0)
 
     bouton_ajouter_une_variable=Button(variable_frame, text=trad_aaadi[langue], command=crée_une_variable).grid(column=0, row=1)
 
@@ -208,7 +210,8 @@ def crée_une_variable():
             variable_tmp["Valeur"]="None"
             fênetre_valeur_par_défaut.destroy()
             fichier[0]["variables"].append({"Nom":variable_tmp["Nom"], "Valeur par défaut":variable_tmp["Valeur"]})
-
+            # Ajouter la nouvelle variable à la liste box
+            liste_des_variable_graphique.insert(END, variable_tmp["Nom"])
 
         variable_tmp={"Nom":"", "Valeur":""}
 
@@ -491,6 +494,15 @@ def mise_a_jours_interface_graphique():
     
     code_frame.destroy()
     code_frame=LabelFrame(espace_de_code, text=trad_aaacb[langue])
+
+    # mise a jour des variables :
+
+    liste_des_variable_graphique.delete(0, END)
+
+    for element_variable in fichier[0]["variables"]:
+        liste_des_variable_graphique.insert(END, element_variable["Nom"])
+
+    # mise a jour des action
 
     ajout_des_action=fichier[1:len(fichier)]
     logging.debug("Fichier mis a jour : " + str(fichier))

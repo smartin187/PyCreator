@@ -30,11 +30,11 @@ trad_aaaaa={"fr":"PyCreator - éditeur", "en":"PyCreator - editor"}
 
 trad_aaaab={"fr":"Fichier", "en":"File"}
 
-trad_aaaac={"fr":"Ouvrir", "en":"Open"}
+trad_aaaac={"fr":"📂 | Ouvrir", "en":"📂 | Open"}
 
-trad_aaaad={"fr":"Enregistrer sous", "en":"Save as"}
+trad_aaaad={"fr":"💾 | Enregistrer sous", "en":"💾 | Save as"}
 
-trad_aaaae={"fr":"Exporter", "en":"Export"}
+trad_aaaae={"fr":"📤 | Exporter", "en":"📤 | Export"}
 
 trad_aaaaf={"fr":"Espace de code", "en":"Code space"}
 
@@ -83,7 +83,7 @@ trad_aaacg={"fr":"Enregister le fihcier", "en":"Save the file"}
 
 trad_aaach={"fr":"Ouvrir un fichier", "en":"Open a file"}
 
-trad_aaaci={"fr":"Paramètre", "en":"Setting"}
+trad_aaaci={"fr":"⚙️ | Paramètre", "en":"⚙️ | Setting"}
 
 trad_aaacj={"fr":"Vous pouvez paramétrer PyCreator. \n Attention : les paramètre sont enregistrer dans le fichier 'Réglage.txt', si vous supprimer ou déplacer ce fichier, cela peut causer des erreur.", "en":"You can set settings of PyCreator. \n Warning : settings are saved in the file 'réglage.txt', please dont delet or move it, it can cause error."}
 

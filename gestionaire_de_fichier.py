@@ -10,19 +10,22 @@ import ast
 
 from traduction import *
 
-langue="fr"
+langue="en"
 
 texte_de_début_du_programme="# Ce programme a etais generer par PyCreator\n# https://github.com/smartin187/PyCreator\n# Si vous souhaiter publier ce programme, veuiller mentionner PyCreator\n\n"
 
-def exporter_le_programme(fichier_liste):
+def exporter_le_programme(fichier_liste, langue_pour_gestionaire_de_fichier):
     """Cette fonction crée un fichier python grace au fichier dans la liste"""
     logging.debug("entrer dans la fonction d'export")
+    global langue
+    langue=langue_pour_gestionaire_de_fichier
+
     fichier_tmp=""
     fichier_tmp=fichier_tmp+texte_de_début_du_programme
     
     liste_des_action=fichier_liste[1:len(fichier_liste)]
     
-    fichier_tmp=fichier_tmp+"\"\"\""+fichier_liste[1]["documentation"]+"\"\"\"\n\n\n"
+    fichier_tmp=fichier_tmp+"\"\"\""+fichier_liste[0]["documentation"]+"\"\"\"\n\n\n"
 
     for element_de_variable in fichier_liste[0]["variables"]:
         fichier_tmp=fichier_tmp + element_de_variable["Nom"] + "=" + element_de_variable["Valeur par défaut"] + "\n"
@@ -45,8 +48,11 @@ def exporter_le_programme(fichier_liste):
 
 
 
-def enregistrer_le_fichier(liste_fichier):
+def enregistrer_le_fichier(liste_fichier, langue_pour_gestionaire_de_fichier):
     """Enregistre le fichier en .PPyC"""
+    global langue
+    langue=langue_pour_gestionaire_de_fichier
+
     chemain_d_accé_fichier=filedialog.asksaveasfilename(
         defaultextension=".",
         filetypes=[(trad_aaacf[langue], "*.PPyC")],
@@ -55,8 +61,11 @@ def enregistrer_le_fichier(liste_fichier):
     if chemain_d_accé_fichier!="":
         Path(chemain_d_accé_fichier).write_text(str(liste_fichier))
 
-def ouvrir_un_fichier_PPyC():
+def ouvrir_un_fichier_PPyC(langue_pour_gestionaire_de_fichier):
     """Cette fonction ouvre un fichier PPyC. Cela convertit le fichier en liste avec chaque élément en dicionnaire. Return cette liste."""
+    global langue
+    langue=langue_pour_gestionaire_de_fichier
+    
     chemain_d_accé_fichier_ouverture=filedialog.askopenfilename(title=trad_aaach[langue],filetypes=[(trad_aaacf[langue], "*.PPyC")])
     logging.debug("chemain d'ouverture : " + chemain_d_accé_fichier_ouverture)
     if chemain_d_accé_fichier_ouverture!="":
@@ -69,3 +78,5 @@ def ouvrir_un_fichier_PPyC():
         logging.debug(fichier_convertit_en_liste)
 
         return fichier_convertit_en_liste
+    else:
+        return "Annuler"

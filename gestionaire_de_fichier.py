@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 
+"""
+Module qui gère l'enregistrement, l'ouverture et l'export des fichier.
+Cela ouvre les fênetre pour hcoisire l'enplacement des fichier à enregistrer/ouvrir/exporter.
+C'est aussi ce module qui crée le code Python générer et qui l'écrit dans un fichier *.py
+"""
+
 import logging
 from pathlib import Path
 logging.basicConfig(level=logging.DEBUG)

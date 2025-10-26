@@ -214,6 +214,46 @@ def crée_une_variable():
             # Ajouter la nouvelle variable à la liste box
             liste_des_variable_graphique.insert(END, variable_tmp["Nom"])
 
+        def action_pour_le_bouton_oui():
+            """Cette fonction est apelé par la bouton 'oui'. Elle permet de mettre la valeur par défaut à une valeur choisis pas l'utilisateur."""
+            def définire_la_valeur():
+                """Cette fonction va ouvrire la fênetre de valeur, puis utiliser la variable valeur_tmp pour mettre la valeur par défaut de la variable."""
+                ajouter_une_valeur()
+            
+                valeur_pour_variable_tmp=valeur_tmp
+                logging.debug("Valeur pour variable : " + valeur_pour_variable_tmp)
+                valeur_du_texte.set(trad_aaabe[langue] + str(valeur_pour_variable_tmp))
+
+
+            def action_pour_validé():
+                """Cette fonction est appelé par le bouton valider. Il permet de mettre toutes les information sur la variable dans 'variable_tmp'"""
+                variable_tmp["Valeur"]=valeur_tmp
+
+                chois_de_la_valeur_par_défaut_fênetre.destroy()
+                fênetre_valeur_par_défaut.destroy()
+
+                fichier[0]["variables"].append({"Nom":variable_tmp["Nom"], "Valeur par défaut":variable_tmp["Valeur"]})
+                # Ajouter la nouvelle variable à la liste box
+                liste_des_variable_graphique.insert(END, variable_tmp["Nom"])
+
+            chois_de_la_valeur_par_défaut_fênetre=Toplevel(fênetre_valeur_par_défaut)
+            chois_de_la_valeur_par_défaut_fênetre.title(trad_aaafb[langue])
+
+            teste_chois_de_la_valeur=Label(chois_de_la_valeur_par_défaut_fênetre, text=trad_aaafc[langue]).pack()
+
+            frame_valeur=LabelFrame(chois_de_la_valeur_par_défaut_fênetre, text=trad_aaabh[langue])
+            définire_la_valeur_bouton=Button(frame_valeur, text=trad_jaaab[langue], command=définire_la_valeur).pack()
+            valeur_du_texte = StringVar()
+            valeur_du_texte.set(trad_aaabi[langue])
+            valeur_texte=Label(frame_valeur, textvariable=valeur_du_texte)
+            valeur_texte.pack()
+            frame_valeur.pack()
+            valider=Button(chois_de_la_valeur_par_défaut_fênetre, text=trad_jaaaa[langue], command=action_pour_validé).pack()
+
+            chois_de_la_valeur_par_défaut_fênetre.grab_set()
+            chois_de_la_valeur_par_défaut_fênetre.wait_window()
+
+
         variable_tmp={"Nom":"", "Valeur":""}
 
         variable_tmp["Nom"]=chan_texte_nom_de_variable.get()
@@ -228,6 +268,7 @@ def crée_une_variable():
         # bouton oui/non :
 
         bouton_non=Button(fênetre_valeur_par_défaut, text=trad_jaaag[langue], command=action_pour_le_bouton_non).pack()
+        bouton_oui=Button(fênetre_valeur_par_défaut, text=trad_jaaah[langue], command=action_pour_le_bouton_oui).pack()
 
         fênetre_valeur_par_défaut.grab_set()
         fênetre_valeur_par_défaut.wait_window()
@@ -353,7 +394,7 @@ def ajouter_une_ligne():
         def définire_la_valeur():
             """Cette fonction définit la valeur du print"""
             ajouter_une_valeur()
-            #global valeur_texte
+            
             valeur_pour_print=valeur_tmp
             logging.debug("Valeur pour print : " + valeur_pour_print)
             valeur_du_texte.set(trad_aaabe[langue] + str(valeur_pour_print))

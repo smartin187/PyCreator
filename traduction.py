@@ -125,3 +125,7 @@ trad_aaaei={"fr":"Vous n'avez pas séléctionner de variable dans la liste déro
 trad_aaaej={"fr":"Valeur d'une variable", "en":"Value of an variable"}
 
 trad_aaafa={"fr":"Vous n'avez pas crée de variable, vous ne pouvez donc pas mettre une valeur à une variable.", "en":"You have not created any variable, so you cannot set a value to a variable."}
+
+trad_aaafb={"fr":"Valeur par défaut", "en":"Value of start"}
+
+trad_aaafc={"fr":"Vous pouvez choisire la valeur par défaut de votre variable.\nCette valeur sera définit au début du programme.", "en":"You can choose the default value for your variable.\nThis value will be set at the start of the program."}

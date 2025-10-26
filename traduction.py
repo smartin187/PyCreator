@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Ce fichier contient les traduction de PyCreator.
 

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import logging
 from pathlib import Path
 logging.basicConfig(level=logging.DEBUG)
@@ -12,7 +14,7 @@ from traduction import *
 
 langue="en"
 
-texte_de_début_du_programme="# Ce programme a etais generer par PyCreator\n# https://github.com/smartin187/PyCreator\n# Si vous souhaiter publier ce programme, veuiller mentionner PyCreator\n\n"
+texte_de_début_du_programme="# -*- coding: utf-8 -*-\n# Ce programme a etais generer par PyCreator\n# https://github.com/smartin187/PyCreator\n# Si vous souhaiter publier ce programme, veuiller mentionner PyCreator\n\n"
 
 def exporter_le_programme(fichier_liste, langue_pour_gestionaire_de_fichier):
     """Cette fonction crée un fichier python grace au fichier dans la liste"""

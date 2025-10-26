@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Module qui gère l'éditeur de PyCreator.
 """

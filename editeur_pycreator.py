@@ -125,6 +125,37 @@ def éditeur_PyCreator():
         """Cette fonction apèle la fonction de paramètra pour odnné l'argument"""
         modifier_les_paramètre(fênetre="éditeur")
 
+    def action_pour_bouton_supprimer_variable():
+        """Cette fonction est appelé par le boutton de supprésion de varaible.
+        Il ouvre une fênetre d'avertissement que si la variable est en cours d'utilisation, cela causera des erreures."""
+        def valider_bouton():
+            """Cette fonction est appelé par la bouton.
+            Elle confirme la suppression de la variable.
+            La variable est donc supprimé, et la listbox est mise a jour."""
+            avertissement_suppresion_de_variable.destroy()
+            index_varaible_à_supprimer=liste_des_variable_graphique.curselection()[0]
+
+            # suppression dans la fichier :
+            del fichier[0]["variables"][index_varaible_à_supprimer]
+            
+            liste_des_variable_graphique.delete(liste_des_variable_graphique.curselection())
+            
+            logging.debug(fichier[0]["variables"])
+        
+        avertissement_suppresion_de_variable=Toplevel(fênetre_éditeur_PyCreator)
+        avertissement_suppresion_de_variable.title(trad_aaaff[langue])
+
+        texte_aversissement=Label(avertissement_suppresion_de_variable, text=trad_aaafg[langue]).pack()
+
+        bouton_annuler=Button(avertissement_suppresion_de_variable, text=trad_jaaaf[langue], command=avertissement_suppresion_de_variable.destroy).pack()
+
+        bouton_valider=Button(avertissement_suppresion_de_variable, text=trad_jaaaa[langue], command=valider_bouton).pack()
+
+        avertissement_suppresion_de_variable.grab_set()
+        avertissement_suppresion_de_variable.wait_window()
+
+
+
     global fênetre_éditeur_PyCreator
     global espace_de_code
     global code_frame
@@ -164,14 +195,31 @@ def éditeur_PyCreator():
 
     liste_des_variable_graphique=Listbox(variable_frame)
 
-    liste_des_variable_graphique.grid(column=0, row=0)
+    liste_des_variable_graphique.grid(column=0, columnspan=2, row=0)
 
-    bouton_ajouter_une_variable=Button(variable_frame, text=trad_aaadi[langue], command=crée_une_variable).grid(column=0, row=1)
+    texte_information_varaible=Label(variable_frame, text=trad_aaafe[langue]).grid(column=0, columnspan=2, row=1)
+
+    bouton_ajouter_une_variable=Button(variable_frame, text=trad_aaadi[langue], command=crée_une_variable).grid(column=0, row=2)
+
+    bouton_supprimer_une_variable=Button(variable_frame, text=trad_aaafd[langue], command=action_pour_bouton_supprimer_variable)
+    bouton_supprimer_une_variable.grid(column=1, row=2)
 
     variable_frame.pack()
 
     valeur_frame.grid(column=0, row=0, padx=5)
     
+    def controle_de_séléction_de_liste():
+        """Cette fonction est appelé en permanance dans la mainloop.
+        Elle permet de controler qu'un élément est séléctionner dans la listebox qui contient les variable, et de griser le bouton 'supprimer' si aucun élément est séléctionner dans la listebox."""
+        if liste_des_variable_graphique.curselection()==():     # si la condition est vrai, aucun élément de la liste est séléctionner.
+            bouton_supprimer_une_variable["state"] = "disabled"
+
+        else:
+            bouton_supprimer_une_variable["state"] = "normal"
+        
+        fênetre_éditeur_PyCreator.after(100, controle_de_séléction_de_liste)
+
+    controle_de_séléction_de_liste()
     
     # espace de code -----------------------------------
     espace_de_code=LabelFrame(fênetre_éditeur_PyCreator, text=trad_aaaaf[langue])
@@ -531,6 +579,9 @@ def mise_a_jours_interface_graphique():
         texte_humain=Label(nouvelle_ligne_de_code, text=élément_utiliser["humain"][langue]).pack()
         texte_python=Label(nouvelle_ligne_de_code, text=élément_utiliser["Python"]).pack()
         nouvelle_ligne_de_code.pack()
+
+    # mise a jour de la documentation dans le fichier pour ne pas perdre les modification
+    fichier[0]["documentation"]=documentation_entrée_texte.get()
 
     global code_frame
     

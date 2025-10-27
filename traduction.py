@@ -129,3 +129,14 @@ trad_aaafa={"fr":"Vous n'avez pas crée de variable, vous ne pouvez donc pas met
 trad_aaafb={"fr":"Valeur par défaut", "en":"Value of start"}
 
 trad_aaafc={"fr":"Vous pouvez choisire la valeur par défaut de votre variable.\nCette valeur sera définit au début du programme.", "en":"You can choose the default value for your variable.\nThis value will be set at the start of the program."}
+
+trad_aaafd={"fr":"Supprimer", "en":"Delet"}
+
+trad_aaafe={"fr":"Pour supprimer une variable,\nséléctionner la dans la liste", "en":"For delet a variable,\nselect it in the list."}
+
+trad_aaaff={"fr":"Supprimer une variable", "en":"Delet a variable"}
+
+trad_aaafg={"fr":"Attention :\nSi la variable est en cours d'utilisation dans le code, cela entrainera des erreur.\nAssurer vous que la variable n'est pas utiliser avant de la supprimer...", "en":"Warning:\nIf the variable is currently used in the code, this will cause errors.\nMake sure the variable is not used before deleting it..."}
+
+
+

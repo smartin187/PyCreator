@@ -17,8 +17,9 @@ code_frame=None
 liste_des_variable_graphique=None
 fichier=None
 
-
 documentation_entrée_texte=None
+
+temps_de_mise_a_jour_interface_graphique=100        # mise a jour de l'interface graphique (apelle de sertaine fonction), pour par exemple la liste box des variables. Cette valeur est en miliseconde.
 
 def apliquer_les_paramètre():
     """Cette fonction applique les paramètre avec le fichier de paramètre"""
@@ -154,7 +155,7 @@ def éditeur_PyCreator():
         avertissement_suppresion_de_variable.grab_set()
         avertissement_suppresion_de_variable.wait_window()
 
-
+    
 
     global fênetre_éditeur_PyCreator
     global espace_de_code
@@ -217,7 +218,7 @@ def éditeur_PyCreator():
         else:
             bouton_supprimer_une_variable["state"] = "normal"
         
-        fênetre_éditeur_PyCreator.after(100, controle_de_séléction_de_liste)
+        fênetre_éditeur_PyCreator.after(temps_de_mise_a_jour_interface_graphique, controle_de_séléction_de_liste)
 
     controle_de_séléction_de_liste()
     
@@ -239,6 +240,13 @@ def éditeur_PyCreator():
     documentation_entrée_texte.pack()
 
     documentation_frame.grid(column=2, row=0, padx=5, sticky="nsew")
+
+    def mise_a_jour_dans_le_fichier_la_doc():
+        """Cette fonction est applé a chaque modification de la documentation, pour enregistrer les modification dans le fichier."""
+        fichier[0]["documentation"]=documentation_entrée_texte.get()
+        fênetre_éditeur_PyCreator.after(temps_de_mise_a_jour_interface_graphique, mise_a_jour_dans_le_fichier_la_doc)
+
+    mise_a_jour_dans_le_fichier_la_doc()
 
     fênetre_éditeur_PyCreator.mainloop()
 
@@ -579,9 +587,6 @@ def mise_a_jours_interface_graphique():
         texte_humain=Label(nouvelle_ligne_de_code, text=élément_utiliser["humain"][langue]).pack()
         texte_python=Label(nouvelle_ligne_de_code, text=élément_utiliser["Python"]).pack()
         nouvelle_ligne_de_code.pack()
-
-    # mise a jour de la documentation dans le fichier pour ne pas perdre les modification
-    fichier[0]["documentation"]=documentation_entrée_texte.get()
 
     global code_frame
     

@@ -480,6 +480,7 @@ def ajouter_une_ligne():
 
         frame_valeur=LabelFrame(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaabh[langue])
         définire_la_valeur=Button(frame_valeur, text=trad_jaaab[langue], command=définire_la_valeur).pack()
+
         valeur_du_texte = StringVar()
         valeur_du_texte.set(trad_aaabi[langue])
         valeur_texte=Label(frame_valeur, textvariable=valeur_du_texte)
@@ -563,20 +564,63 @@ def ajouter_une_ligne():
             valeur_texte.pack()
             frame_valeur.pack()
             valider=Button(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_jaaaa[langue], command=valider).pack()
+    
+    def ajouter_un_commentaire_bouton():
+        """Cette fonction est applé par la bouton ajouter un commentaire.
+        Cette fonction ouvre ensuite une fêntre pour que l'utilisateur sésice sont commentaire."""
+        def valider_le_commentaire_bouton():
+            """Cette fonction est applé par le bouton valider.
+            Il crée le commentaire."""
+            commentaire_tmp=entré_texte_pour_commmentaire.get()
+            fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy()
+
+            fichier.append({"humain":{"fr":f"Commentaire pour vous :\n{commentaire_tmp}", "en":f"Comment for yourself:\n{commentaire_tmp}"}, "Python":f"#{commentaire_tmp}"})
+            mise_a_jours_interface_graphique()
+
+
+        fênetre_ajouter_une_ligne.destroy()
+
+        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique=Toplevel(fênetre_éditeur_PyCreator)
+        
+        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.title(trad_aaafj[langue])
+
+        texte_fênetre_variable=Label(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaaga[langue]).grid(column=0, columnspan=2, row=0)
+
+        entré_texte_pour_commmentaire=Entry(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, width=50)
+        entré_texte_pour_commmentaire.grid(column=0, columnspan=2, row=1)
+
+        bouton_valider=Button(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_jaaaa[langue], command=valider_le_commentaire_bouton).grid(column=0, row=2)
+
+        bouton_annuler=Button(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_jaaaf[langue], command=fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy).grid(column=1, row=2)
+
+        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.grab_set()
+        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.wait_window()
+
     global fênetre_ajouter_une_ligne
 
     fênetre_ajouter_une_ligne = Toplevel(fênetre_éditeur_PyCreator)
     fênetre_ajouter_une_ligne.grab_set()
     fênetre_ajouter_une_ligne.title(trad_jaaac[langue])
+
+
     frame_commande_pyhton=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaabj[langue])
     frame_variable=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaadg[langue])
+    frame_commentaire=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaafi[langue])
+
+
     # bouton pour les fonction python :
     bouton_ajouter_comande_print=Button(frame_commande_pyhton, text=trad_aaaca[langue], command=bouton_print).pack()
+    
     # bouton pour les variables :
     bouton_ajouter_command_changer_la_valeur_d_une_variable=Button(frame_variable, text=trad_aaaeb[langue], command=bouton_mettre_variable_valeur).pack()
+    
+    # bouton pour les commentaire :
+    bouton_ajouter_un_commentaire=Button(frame_commentaire, text=trad_aaafh[langue], command=ajouter_un_commentaire_bouton).pack()
 
-    frame_commande_pyhton.pack()
-    frame_variable.pack()
+    frame_commande_pyhton.grid(column=0, row=0, padx=5, pady=5)
+    frame_variable.grid(column=1, row=0, padx=5, pady=5)
+
+    frame_commentaire.grid(column=2, row=0, padx=5, pady=5)
     
     
 def mise_a_jours_interface_graphique():

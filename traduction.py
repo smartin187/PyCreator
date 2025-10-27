@@ -138,5 +138,13 @@ trad_aaaff={"fr":"Supprimer une variable", "en":"Delet a variable"}
 
 trad_aaafg={"fr":"Attention :\nSi la variable est en cours d'utilisation dans le code, cela entrainera des erreur.\nAssurer vous que la variable n'est pas utiliser avant de la supprimer...", "en":"Warning:\nIf the variable is currently used in the code, this will cause errors.\nMake sure the variable is not used before deleting it..."}
 
+trad_aaafh={"fr":"Commentaire pour vous même\n# <commentaire>", "en":"Comment for yourself\n# <comment>"}
+
+trad_aaafi={"fr":"Commentaire", "en":"Comment"}
+
+trad_aaafj={"fr":"Ajouter un commentaire", "en":"Add a comment"}
+
+trad_aaaga={"fr":"Commentaire pour vous même\n# <commentaire>\nLes commentaire sont des ligne dans votre code qui ne sont pas exécuter par le programme.\nElles sont utiles pour vous, pour améliorer la lisibilité du code.\nIl est aussi important d'utiliser les commentaire quand vous travailler a plusieurs sur un programme.", "en":"Comment for yourself\n# <comment>\nComments are lines in your code that are not executed by the program.\nThey are useful for you, to improve code readability.\nIt is also important to use comments when working with others on a program."}
+
 
 

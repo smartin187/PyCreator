@@ -16,6 +16,9 @@ espace_de_code=None
 code_frame=None
 liste_des_variable_graphique=None
 fichier=None
+canvas_code=None
+scrollbar_code=None
+
 
 documentation_entrée_texte=None
 
@@ -194,9 +197,20 @@ def éditeur_PyCreator():
 
     global liste_des_variable_graphique
 
-    liste_des_variable_graphique=Listbox(variable_frame)
+    listbox_frame = Frame(variable_frame)
 
-    liste_des_variable_graphique.grid(column=0, columnspan=2, row=0)
+    liste_des_variable_graphique=Listbox(listbox_frame)
+
+    scrollbar_variable = Scrollbar(listbox_frame, orient=VERTICAL)
+
+    liste_des_variable_graphique.config(yscrollcommand=scrollbar_variable.set)
+    scrollbar_variable.config(command=liste_des_variable_graphique.yview)
+
+    liste_des_variable_graphique.pack(side=LEFT, fill=BOTH, expand=True)
+    scrollbar_variable.pack(side=RIGHT, fill=Y)
+
+    listbox_frame.grid(column=0, columnspan=2, row=0)
+
 
     texte_information_varaible=Label(variable_frame, text=trad_aaafe[langue]).grid(column=0, columnspan=2, row=1)
 
@@ -207,7 +221,7 @@ def éditeur_PyCreator():
 
     variable_frame.pack()
 
-    valeur_frame.grid(column=0, row=0, padx=5)
+    valeur_frame.grid(column=0, row=0, rowspan=2, padx=5)
     
     def controle_de_séléction_de_liste():
         """Cette fonction est appelé en permanance dans la mainloop.
@@ -223,20 +237,49 @@ def éditeur_PyCreator():
     controle_de_séléction_de_liste()
     
     # espace de code -----------------------------------
-    espace_de_code=LabelFrame(fênetre_éditeur_PyCreator, text=trad_aaaaf[langue])
+
+    conteneur_espace_code = Frame(fênetre_éditeur_PyCreator)
+
+    global canvas_code, scrollbar_code
+
+    canvas_code = Canvas(conteneur_espace_code, width=200, height=400)
+
+    scrollbar_code = Scrollbar(conteneur_espace_code, orient=VERTICAL, command=canvas_code.yview)
+
+    canvas_code.configure(yscrollcommand=scrollbar_code.set)
+
+    espace_de_code=LabelFrame(canvas_code, text=trad_aaaaf[langue])
+
+    canvas_window = canvas_code.create_window((0, 0), window=espace_de_code, anchor="nw")
+
+    canvas_code.pack(side=LEFT, fill=BOTH, expand=True)
+    scrollbar_code.pack(side=RIGHT, fill=Y)
+
     code_frame=LabelFrame(espace_de_code, text=trad_aaaag[langue])
     ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaaah[langue], command=ajouter_une_ligne).pack()
 
-    espace_de_code.grid(column=1, row=0, rowspan=2, padx=5, sticky="nsew")
-  
+    conteneur_espace_code.grid(column=1, row=0, rowspan=3, padx=5, sticky="nsew")
+
     code_frame.pack()
+
+    def configurer_scroll_region(event=None):
+        canvas_code.configure(scrollregion=canvas_code.bbox("all"))
+
+    # Binding pour mettre à jour la région de scroll quand le contenu change
+    espace_de_code.bind("<Configure>", configurer_scroll_region)
+
+    # Permet le défilement avec la molette de la souris
+    def _on_mousewheel(event):
+        canvas_code.yview_scroll(int(-1*(event.delta/120)), "units")
+
+    canvas_code.bind_all("<MouseWheel>", _on_mousewheel)
 
     # documentation du projet ------------------------------
 
     documentation_frame=LabelFrame(fênetre_éditeur_PyCreator, text=trad_aaade[langue])
     texte_documentation_frame=Label(documentation_frame, text=trad_aaadf[langue]).pack()
     
-    documentation_entrée_texte=Entry(documentation_frame)
+    documentation_entrée_texte=Entry(documentation_frame, width=60)
     documentation_entrée_texte.pack()
 
     documentation_frame.grid(column=2, row=0, padx=5, sticky="nsew")
@@ -630,7 +673,7 @@ def mise_a_jours_interface_graphique():
         nouvelle_ligne_de_code=LabelFrame(code_frame, text=trad_jaaad[langue])
         texte_humain=Label(nouvelle_ligne_de_code, text=élément_utiliser["humain"][langue]).pack()
         texte_python=Label(nouvelle_ligne_de_code, text=élément_utiliser["Python"]).pack()
-        nouvelle_ligne_de_code.pack()
+        nouvelle_ligne_de_code.pack(padx=5, pady=5)
 
     global code_frame
     
@@ -660,4 +703,18 @@ def mise_a_jours_interface_graphique():
     documentation_entrée_texte.insert(0, fichier[0]["documentation"])
 
     ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaacc[langue], command=ajouter_une_ligne).pack()
-    code_frame.pack()
+    code_frame.pack(padx=10, pady=10)
+
+    # Mise à jour de la région de scroll après l'ajout des éléments
+    espace_de_code.update_idletasks()
+
+    hauteur_nésésaire = espace_de_code.winfo_reqheight()
+    largeur_nésésaire = espace_de_code.winfo_reqwidth()
+
+    nouvelle_largeure_canva = largeur_nésésaire
+    canvas_code.config(width=nouvelle_largeure_canva)
+
+    nouvelle_hauteur_canva = min(hauteur_nésésaire, 500)
+    canvas_code.config(height=nouvelle_hauteur_canva)
+
+    canvas_code.configure(scrollregion=canvas_code.bbox("all"))

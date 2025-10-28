@@ -20,7 +20,6 @@ from traduction import *
 
 langue="en"
 
-texte_de_début_du_programme="# -*- coding: utf-8 -*-\n# Ce programme a etais generer par PyCreator\n# https://github.com/smartin187/PyCreator\n# Si vous souhaiter publier ce programme, veuiller mentionner PyCreator\n\n"
 
 def exporter_le_programme(fichier_liste, langue_pour_gestionaire_de_fichier):
     """Cette fonction crée un fichier python grace au fichier dans la liste"""
@@ -29,7 +28,7 @@ def exporter_le_programme(fichier_liste, langue_pour_gestionaire_de_fichier):
     langue=langue_pour_gestionaire_de_fichier
 
     fichier_tmp=""
-    fichier_tmp=fichier_tmp+texte_de_début_du_programme
+    fichier_tmp = fichier_tmp + trad_aaagb[langue]      # trad_aaagb contient des commentaire en début du code pour le début du programme
     
     liste_des_action=fichier_liste[1:len(fichier_liste)]
     

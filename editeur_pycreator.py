@@ -258,7 +258,7 @@ def éditeur_PyCreator():
     code_frame=LabelFrame(espace_de_code, text=trad_aaaag[langue])
     ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaaah[langue], command=ajouter_une_ligne).pack()
 
-    conteneur_espace_code.grid(column=1, row=0, rowspan=3, padx=5, sticky="nsew")
+    conteneur_espace_code.grid(column=1, row=0, rowspan=3, padx=5, sticky="new")
 
     code_frame.pack()
 
@@ -290,6 +290,10 @@ def éditeur_PyCreator():
         fênetre_éditeur_PyCreator.after(temps_de_mise_a_jour_interface_graphique, mise_a_jour_dans_le_fichier_la_doc)
 
     mise_a_jour_dans_le_fichier_la_doc()
+
+    mise_a_jours_interface_graphique()
+
+    mise_a_jour_canva()
 
     fênetre_éditeur_PyCreator.mainloop()
 
@@ -705,6 +709,10 @@ def mise_a_jours_interface_graphique():
     ajouter_une_ligne_bouton=Button(code_frame, text=trad_aaacc[langue], command=ajouter_une_ligne).pack()
     code_frame.pack(padx=10, pady=10)
 
+    
+    
+def mise_a_jour_canva():
+    """Cette fonction met a jour le canva en fonction de l'espace. Le canva est donc agrandis ou rétrécis en fonction de la taille de la fênetre et en fonction de la taille du code."""
     # Mise à jour de la région de scroll après l'ajout des éléments
     espace_de_code.update_idletasks()
 
@@ -712,9 +720,10 @@ def mise_a_jours_interface_graphique():
     largeur_nésésaire = espace_de_code.winfo_reqwidth()
 
     nouvelle_largeure_canva = largeur_nésésaire
-    canvas_code.config(width=nouvelle_largeure_canva)
 
-    nouvelle_hauteur_canva = min(hauteur_nésésaire, 500)
-    canvas_code.config(height=nouvelle_hauteur_canva)
+    nouvelle_hauteur_canva = min(hauteur_nésésaire, fênetre_éditeur_PyCreator.winfo_height())
+    canvas_code.config(height=nouvelle_hauteur_canva, width=nouvelle_largeure_canva)
 
     canvas_code.configure(scrollregion=canvas_code.bbox("all"))
+    
+    fênetre_éditeur_PyCreator.after(temps_de_mise_a_jour_interface_graphique, mise_a_jour_canva)

@@ -504,7 +504,7 @@ def ajouter_une_ligne():
         def valider():
             """Cette fonction valide le print"""
             ligne_de_code_tmp=f"print({valeur_tmp})"
-            fichier.append({"humain":{"fr":f"Ecrire dans le terminale {valeur_tmp}", "en":f"Write in the terminal {valeur_tmp}"}, "Python":ligne_de_code_tmp})
+            fichier.append({"humain":{"fr":f"Ecrire dans le terminale {valeur_tmp}", "en":f"Write in the terminal {valeur_tmp}"}, "Python":ligne_de_code_tmp, "type":"action"})
             logging.debug("fichier : " + str(fichier))
             fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy()
             mise_a_jours_interface_graphique()
@@ -561,7 +561,7 @@ def ajouter_une_ligne():
 
             else:
                 ligne_de_code_tmp=f"{nom_variable_tmp} = {valeur_tmp}"
-                fichier.append({"humain":{"fr":f"Mettre la variable {nom_variable_tmp} à {valeur_tmp}", "en":f"Set the variable {nom_variable_tmp} to {valeur_tmp}"}, "Python":ligne_de_code_tmp})
+                fichier.append({"humain":{"fr":f"Mettre la variable {nom_variable_tmp} à {valeur_tmp}", "en":f"Set the variable {nom_variable_tmp} to {valeur_tmp}"}, "Python":ligne_de_code_tmp, "type":"action"})
                 logging.debug("fichier : " + str(fichier))
                 fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy()
                 mise_a_jours_interface_graphique()
@@ -621,7 +621,7 @@ def ajouter_une_ligne():
             commentaire_tmp=entré_texte_pour_commmentaire.get()
             fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy()
 
-            fichier.append({"humain":{"fr":f"Commentaire pour vous :\n{commentaire_tmp}", "en":f"Comment for yourself:\n{commentaire_tmp}"}, "Python":f"#{commentaire_tmp}"})
+            fichier.append({"humain":{"fr":commentaire_tmp, "en":commentaire_tmp}, "Python":f"#{commentaire_tmp}", "type":"commentaire"})
             mise_a_jours_interface_graphique()
 
 
@@ -674,7 +674,14 @@ def mise_a_jours_interface_graphique():
     """Cette fonction permet de metre a jours l'interface graphique, donc d'ajouter / supprimer des lignes de code."""
     def ajouter_ligne_de_code_interface(élément_utiliser:int):
         """Cette fonction ajoute a l'interface graphique un ligne de code."""
-        nouvelle_ligne_de_code=LabelFrame(code_frame, text=trad_jaaad[langue])
+        if élément_utiliser["type"]=="action":
+            nouvelle_ligne_de_code=LabelFrame(code_frame, text=trad_jaaad[langue])
+        elif élément_utiliser["type"]=="commentaire":
+            nouvelle_ligne_de_code=LabelFrame(code_frame, text=trad_aaagc[langue])
+        else:
+            logging.error("Erreur dans le fichier, pour l'élément : " + str(élément_utiliser))
+            return None
+        
         texte_humain=Label(nouvelle_ligne_de_code, text=élément_utiliser["humain"][langue]).pack()
         texte_python=Label(nouvelle_ligne_de_code, text=élément_utiliser["Python"]).pack()
         nouvelle_ligne_de_code.pack(padx=5, pady=5)

@@ -153,3 +153,28 @@ trad_aaagb={
 
 trad_aaagc={"fr":"Commentaire pour vous :", "en":"Comment for yourself:"}
 
+trad_aaagd={
+    "fr":"Votre nom de variable est uncorrecte :\nUn caractère interdit a étais trouvé.\nLes caractère autorisé sont toutes les lettre (MAJUSCULE ou minuscule), et les underscor '_'.",
+    "en":"Your variable name is incorrect:\nA forbidden character was found.\nAllowed characters are all letters (UPPERCASE or lowercase), and the underscore '_'."
+}
+
+trad_aaage={
+    "fr":"Votre nom de variable est uncorrecte :\nLe nom de variable ne peut pas être vide.",
+    "en":"Your variable name is incorrect:\nThe variable name cannot be empty."
+}
+
+trad_aaagf={
+    "fr":"Votre nom de variable est uncorrecte :\nLe nom de votre variable existe déjà (deux variable ne peuvent pas avoire le même nom).",
+    "en":"Your variable name is incorrect:\nThe variable name already exists (two variables cannot have the same name)."
+}
+
+trad_aaagh={
+    "fr":"Avertissement :\nVotre variable contient des caractère acctué.\nCela est autorisé en Python 3, mais fortement déconseiller, car les version antérieur de Python ne le supporte pas.\nIl est donc recomander de ne pas mettre de caractère accentué dans le nom des variables...",
+    "en":"Warning:\nYour variable contains accented characters.\nThis is allowed in Python 3, but strongly discouraged, as previous versions of Python do not support it.\nIt is therefore recommended not to use accented characters in variable names..."
+}
+
+trad_aaagi={
+    "fr":"Avertissement :\nVotre variable contient un enderscror (_) au début de son nom.\nL'usage du enderscor est autorisé dans le nom d'une variable, mais déconseiller de le mettre en premier caractère, car cela peut être un usage spéciale de Python.\nSi vous shouaité faire un de ces usage sléciale, vous pouvez le lesser, mais si vous n'en vouler pas, il est recomander de l'enlever (ou d'ajouter un autre caractère devant lui).",
+    "en":"Warning:\nYour variable contains an underscore (_) at the beginning of its name.\nUsing an underscore is allowed in variable names, but it is not recommended to put it as the first character, as this can have special meaning in Python.\nIf you want to use one of these special usages, you can leave it, but if not, it is recommended to remove it (or add another character before it)."
+}
+

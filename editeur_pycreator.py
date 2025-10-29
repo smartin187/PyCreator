@@ -8,6 +8,7 @@ import logging
 from gestionaire_de_fichier import *
 from traduction import *
 import ast
+import re
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -376,17 +377,113 @@ def crée_une_variable():
         fênetre_valeur_par_défaut.grab_set()
         fênetre_valeur_par_défaut.wait_window()
     
+    def controle_nom_de_la_varaible():
+        """Cette fonction est appelé dans la mainloop.
+        Elle controle le nom de la variable avec plusieurs point :
+        - caractère interdit (et espace)
+        - nom déjà utiliser
+        - nom vide
+        et des avertissement :
+        - caractère accentué
+        - underscore en début ou en fin
+        """
+        def controle():
+            """Cette variable effectue le controle et fait un return dès qu'il y a une erreur"""
+            def désactiver_le_bouton():
+                """Cette fonction désactive le bouton ("disabled"), ce qui fait que l'utilisateur ne peut plus cliquer dessus.
+                Cette fonction désactive aussi les avertissement"""
+                bouton_valider["state"] = "disabled"
+                texte_avertisement_stringvar.set("")
+            
+            nom_variable_tmp=chan_texte_nom_de_variable.get()
+            # controle d'erreur :
+
+            # controle du nom vide :
+            if nom_variable_tmp=="":    # le nom de la variable est vide
+                texte_erreur_stringvar.set(trad_aaage[langue])
+                désactiver_le_bouton()
+                return None
+
+            # controle de caractère
+            for caractère in nom_variable_tmp:
+                if not (caractère.isalpha() or caractère == "_"):       # contient un caractère interdit
+                    texte_erreur_stringvar.set(trad_aaagd[langue])
+                    désactiver_le_bouton()
+                    return None
+
+            # teste si le nom existe déjà :
+            liste_tmp_variable=[]
+            for élement in fichier[0]["variables"]:
+                liste_tmp_variable.append(élement["Nom"])
+
+            if nom_variable_tmp in liste_tmp_variable:      # contorle si la variable en cours de création existe déjà
+                texte_erreur_stringvar.set(trad_aaagf[langue])
+                désactiver_le_bouton()
+                return None
+                
+            # si les controle précédent n'on pas retourné None, c'est qu'il n'y a pas d'erreur sur le nom de variable.
+            texte_erreur_stringvar.set("")  # suppréssion du potentiel texte
+
+            bouton_valider["state"] = "normal"
+            avertissement()
+
+        def avertissement():
+            """Cette fonction gère les avertissement :
+            - nom de variable contenant des accent
+            - nom de variable contenant des _ au début
+            un avertissement ne bloc pas la création de la variable, mais le déconseil.
+            """
+            nom_variable_tmp=chan_texte_nom_de_variable.get()
+            def contient_des_accent(caractère):
+                """Cette fonction recoit en argument une chaine de caractère et returne True si un des caractère contient un accent et False si il n'en contient pas."""
+                return not(bool(re.fullmatch(r"[A-Za-z_]+", caractère)))
+                
+            texte_avertissement_tmp=""
+
+            # les avertissement : quand il y a un avertissement, l'utilisateur peut crée la variable mais il est fortement déconseiller de ne pas le faire.
+            if contient_des_accent(caractère=nom_variable_tmp):
+                texte_avertissement_tmp = trad_aaagh[langue]
+
+            if len(nom_variable_tmp)!=0:      # vérification que la chaine de caractère n'est pas vide pour éviter l'erreur IndexError: string index out of range
+                if nom_variable_tmp[0]=="_":        # avertissement que le nom peut être utiliser pour un nom spécial réservé
+                    texte_avertissement_tmp = texte_avertissement_tmp + trad_aaagi[langue]
+            
+            texte_avertisement_stringvar.set(texte_avertissement_tmp)
+            
+
+        controle()
+        
+
+        fênetre_crée_variable.after(temps_de_mise_a_jour_interface_graphique, controle_nom_de_la_varaible)
+
+
+
     fênetre_crée_variable=Toplevel(fênetre_éditeur_PyCreator)
 
     fênetre_crée_variable.title(trad_aaadi[langue])
 
     texte_création_de_variable=Label(fênetre_crée_variable, text=trad_aaadj[langue]).grid(column=0, columnspan=2, row=0)
     
-    chan_texte_nom_de_variable=Entry(fênetre_crée_variable)
-    chan_texte_nom_de_variable.grid(column=0, row=1, columnspan=2)
+    texte_erreur_stringvar=StringVar()
+    texte_erreur_stringvar.set("")
 
-    bouton_valider=Button(fênetre_crée_variable, text=trad_jaaaa[langue], command=valider_la_variable).grid(column=0, row=2)
-    bouton_annuler=Button(fênetre_crée_variable, text=trad_jaaaf[langue], command=fênetre_crée_variable.destroy).grid(column=1, row=2)
+    texte_avertisement_stringvar=StringVar()
+    texte_avertisement_stringvar.set("")
+
+    texte_erreur_label=Label(fênetre_crée_variable, textvariable=texte_erreur_stringvar, fg="red")
+    texte_erreur_label.grid(column=0, columnspan=2, row=2)
+
+    texte_avertissement_label=Label(fênetre_crée_variable, textvariable=texte_avertisement_stringvar, fg="#DFBF0C")
+    texte_avertissement_label.grid(column=0, columnspan=2, row=3)
+
+    chan_texte_nom_de_variable=Entry(fênetre_crée_variable)
+    chan_texte_nom_de_variable.grid(column=0, row=4, columnspan=2)
+
+    bouton_valider=Button(fênetre_crée_variable, text=trad_jaaaa[langue], command=valider_la_variable)
+    bouton_valider.grid(column=0, row=5)
+    bouton_annuler=Button(fênetre_crée_variable, text=trad_jaaaf[langue], command=fênetre_crée_variable.destroy).grid(column=1, row=5)
+
+    controle_nom_de_la_varaible()
 
     fênetre_crée_variable.grab_set()
     fênetre_crée_variable.wait_window()

@@ -178,3 +178,11 @@ trad_aaagi={
     "en":"Warning:\nYour variable contains an underscore (_) at the beginning of its name.\nUsing an underscore is allowed in variable names, but it is not recommended to put it as the first character, as this can have special meaning in Python.\nIf you want to use one of these special usages, you can leave it, but if not, it is recommended to remove it (or add another character before it)."
 }
 
+trad_aaagj={"fr":"Ajouter une ligne - ligne de code personnalisé", "en":"Add a line - custom code line"}
+
+trad_aaaha={"fr":"Ligne de code personnalisé\n\nEntrer votre ligne de code personnalisé.\nAttention a bien respecter la sintaxe.", "en":"Custom code line\n\nEnter your custom code line.\nBe careful to respect the syntax."}
+
+trad_aaahb={"fr":"Ligne de code personnalisé", "en":"Custom code ligne"}
+
+trad_aaahc={"fr":"Programation avancé", "en":"Advanced programming"}
+

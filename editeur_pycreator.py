@@ -740,6 +740,38 @@ def ajouter_une_ligne():
         fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.grab_set()
         fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.wait_window()
 
+    def ajouté_une_ligne_de_code_personnalisé():
+        """Cette fonction ouvre une fêntre avec une saisit de texte pour que l'utilisateur puisse mettre sa ligne de code personnalisé."""
+        def valider_la_ligne_de_code_personnalisé():
+            """Cette fonction est applé par le bouton 'validé'.
+            Cette fonction écrit dans le fichier la ligne de code personnalisé."""
+            ligne_de_code_personnalisé_tmp=entré_texte_pour_la_ligne_de_code_personnalisé.get()
+
+            fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy()
+
+            fichier.append({"humain":trad_aaahb, "Python":ligne_de_code_personnalisé_tmp, "type":"action"})
+
+            mise_a_jours_interface_graphique()
+
+        fênetre_ajouter_une_ligne.destroy()
+
+        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique=Toplevel(fênetre_éditeur_PyCreator)
+        
+        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.title(trad_aaagj[langue])
+
+        texte_fênetre_variable=Label(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_aaaha[langue]).grid(column=0, columnspan=2, row=0)
+
+        entré_texte_pour_la_ligne_de_code_personnalisé=Entry(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, width=50)
+        entré_texte_pour_la_ligne_de_code_personnalisé.grid(column=0, columnspan=2, row=1)
+
+        bouton_valider=Button(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_jaaaa[langue], command=valider_la_ligne_de_code_personnalisé).grid(column=0, row=2)
+
+        bouton_annuler=Button(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique, text=trad_jaaaf[langue], command=fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy).grid(column=1, row=2)
+
+        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.grab_set()
+        fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.wait_window()
+
+
     global fênetre_ajouter_une_ligne
 
     fênetre_ajouter_une_ligne = Toplevel(fênetre_éditeur_PyCreator)
@@ -750,7 +782,7 @@ def ajouter_une_ligne():
     frame_commande_pyhton=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaabj[langue])
     frame_variable=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaadg[langue])
     frame_commentaire=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaafi[langue])
-
+    frame_ligne_de_code_personnalisé=LabelFrame(fênetre_ajouter_une_ligne, text=trad_aaahc[langue])
 
     # bouton pour les fonction python :
     bouton_ajouter_comande_print=Button(frame_commande_pyhton, text=trad_aaaca[langue], command=bouton_print).pack()
@@ -761,10 +793,16 @@ def ajouter_une_ligne():
     # bouton pour les commentaire :
     bouton_ajouter_un_commentaire=Button(frame_commentaire, text=trad_aaafh[langue], command=ajouter_un_commentaire_bouton).pack()
 
+    # bouton pour ligne de code personnalisé :
+
+    bouton_ligne_de_code_personnalisé=Button(frame_ligne_de_code_personnalisé, text=trad_aaahb[langue], command=ajouté_une_ligne_de_code_personnalisé).pack()
+
     frame_commande_pyhton.grid(column=0, row=0, padx=5, pady=5)
     frame_variable.grid(column=1, row=0, padx=5, pady=5)
 
     frame_commentaire.grid(column=2, row=0, padx=5, pady=5)
+
+    frame_ligne_de_code_personnalisé.grid(column=3, row=0, padx=5, pady=5)
     
     
 def mise_a_jours_interface_graphique():

@@ -186,3 +186,9 @@ trad_aaahb={"fr":"Ligne de code personnalisé", "en":"Custom code ligne"}
 
 trad_aaahc={"fr":"Programation avancé", "en":"Advanced programming"}
 
+trad_aaahd={"fr":"Valeur personnalisé", "en":"Custom value"}
+
+trad_aaahe={"fr":"Valeur personnalisé\n\nEntrer une valeur personnalisé.\nCette valeur peut être tout ce que vous voulez, à condition de respecter la sintaxe.", "en":"Custom value\n\nEnter a custom value.\nThis value can be anything you want, as long as you respect the syntax."}
+
+trad_aaahf={"fr":"Ajouter une valeur - valeur personnalisé", "en":"Add a value - custom value"}
+

@@ -565,6 +565,28 @@ def ajouter_une_valeur():
             fênetre_valeur_variable.grab_set()
             fênetre_valeur_variable.wait_window()
 
+    def valeur_personnalisé():
+        """Cette fonction ouvre une fênetre où l'utilisateur saisit dans une entré texte la valeur personnalisé."""
+        def valider_valeur_personnalisé():
+            """Cette fonction est appelé quand l'utilisateur clique sur validé"""
+            global valeur_tmp
+            valeur_tmp=chan_texte.get()
+            
+            logging.debug(valeur_tmp)
+            fênetre_valeur_personnalisé.destroy()
+
+        fênetre_valeur.destroy()
+        
+        global chan_texte
+        fênetre_valeur_personnalisé=Toplevel(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique)
+        fênetre_valeur_personnalisé.title(trad_aaahf[langue])
+        fênetre_valeur_personnalisé.grab_set()
+        
+        texte_fênetre_valeur_personnalisé=Label(fênetre_valeur_personnalisé, text=trad_aaahe[langue]).pack()
+        chan_texte=Entry(fênetre_valeur_personnalisé, width=100)
+        chan_texte.pack()
+        bouton_valider=Button(fênetre_valeur_personnalisé, text=trad_jaaaa[langue], command=valider_valeur_personnalisé).pack()
+        fênetre_valeur_personnalisé.wait_window()
 
     global fênetre_ajouter_une_ligne_ecrire_dans_le_terminale
 
@@ -573,15 +595,25 @@ def ajouter_une_valeur():
     fênetre_valeur.grab_set()
     texte_fênetre_valeur=Label(fênetre_valeur, text=trad_aaabb[langue]).pack()
 
-    frame_valeurs_littérales=LabelFrame(fênetre_valeur, text=trad_aaabc[langue])
-    bouton_str=Button(frame_valeurs_littérales, text=trad_aaabd[langue], command=chaine_str).pack()
-    frame_valeurs_littérales.pack()
+    frame_choix_de_valeur=Frame(fênetre_valeur)
 
-    frame_variable=LabelFrame(fênetre_valeur, text=trad_aaadg[langue])
+    frame_valeurs_littérales=LabelFrame(frame_choix_de_valeur, text=trad_aaabc[langue])
+    bouton_str=Button(frame_valeurs_littérales, text=trad_aaabd[langue], command=chaine_str).pack()
+    frame_valeurs_littérales.grid(column=0, row=0, padx=5, pady=5)
+
+    frame_variable=LabelFrame(frame_choix_de_valeur, text=trad_aaadg[langue])
 
     bouton_valeur_de_la_variable=Button(frame_variable, text=trad_aaaej[langue], command=valeur_variable).pack()
 
-    frame_variable.pack()
+    frame_variable.grid(column=1, row=0, padx=5, pady=5)
+
+    frame_valeur_personnalisé=LabelFrame(frame_choix_de_valeur, text=trad_aaahc[langue])
+
+    bouton_valeur_personnalisé=Button(frame_valeur_personnalisé, text=trad_aaahd[langue], command=valeur_personnalisé).pack()
+
+    frame_valeur_personnalisé.grid(column=2, row=0, padx=5, pady=5)
+
+    frame_choix_de_valeur.pack()
 
     fênetre_valeur.wait_window()
 

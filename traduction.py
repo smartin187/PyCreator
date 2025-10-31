@@ -192,3 +192,14 @@ trad_aaahe={"fr":"Valeur personnalisé\n\nEntrer une valeur personnalisé.\nCett
 
 trad_aaahf={"fr":"Ajouter une valeur - valeur personnalisé", "en":"Add a value - custom value"}
 
+trad_aaahg={"fr":"Entrée...", "en":"Entry..."}
+
+trad_aaahi={"fr":"L'utilisateur césit dans le terminal un texte\ninput()", "en":"The user enters text in the terminal\ninput()"}
+
+trad_aaahj={"fr":"Ajouter une valeur - L'utilisateur césit dans le terminal un texte", "en":"Add a value - The user enters text in the terminal"}
+
+trad_aaaia={
+    "fr":"L'utilisateur césit dans le terminal un texte\ninput()\n\nL'utilisateur écrit dans le terminal, aucun, un ou plusieurs caractère.\nQuand il appui sur 'Entrée', La valeur est validé.\nCette valeur est donc une chaine de caractère (potentiellement vide si l'utilisateur n'écrit rien).\n\nVous avez la posibilité de mettre un 'message' pour l'utilisateur :\nLe message sera écrit dans le terminal, puis l'utilisateur écrira le texte.\nUtiliser le pour dire a l'utilisateur que faire.\n",
+    "en":"The user enters text in the terminal\ninput()\n\nThe user types in the terminal: none, one, or several characters.\nWhen they press 'Enter', the value is validated.\nThis value is therefore a string (possibly empty if the user types nothing).\n\nYou have the possibility to set a 'message' for the user:\nThe message will be displayed in the terminal, then the user will type the text.\nUse it to tell the user what to do.\n"
+}
+

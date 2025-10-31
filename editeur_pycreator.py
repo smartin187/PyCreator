@@ -588,6 +588,55 @@ def ajouter_une_valeur():
         bouton_valider=Button(fênetre_valeur_personnalisé, text=trad_jaaaa[langue], command=valider_valeur_personnalisé).pack()
         fênetre_valeur_personnalisé.wait_window()
 
+    def valeur_input():
+        """Cette fonction permet d'ajouter comme valeur un input. L'utilisateur peut donc choisire de mettre ou non un message pour l'utilisateur, puis l'utilisateur écrit dans le terminal, et la valeur est retourné."""
+        def mettre_une_valeur_pour_le_message():
+            """Cette fonction gère l'ajout de la valeur que l'utilisateur veut mettre pour le mssage du input()."""
+            logging.debug("applèle de la fonction d'ajouter_une_valeur pour la input()")
+            ajouter_une_valeur()
+
+            global valeur_tmp
+
+            logging.debug("valeur_tmp = " + valeur_tmp)
+
+
+            texte_pour_valeur_input.set(trad_aaabe[langue] + valeur_tmp)
+
+        def valider_valeur_input():
+            """Cette fonction est appelé quand l'utilisateur clique sur validé"""
+            global valeur_tmp
+            
+            valeur_tmp=f"input({valeur_tmp})"
+            
+            logging.debug(valeur_tmp)
+            fênetre_valeur_input.destroy()
+
+        fênetre_valeur.destroy()
+        
+        global chan_texte
+        fênetre_valeur_input=Toplevel(fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique)
+        fênetre_valeur_input.title(trad_aaahj[langue])
+        
+        fênetre_valeur_input.grab_set()
+        
+        texte_fênetre_input=Label(fênetre_valeur_input, text=trad_aaaia[langue]).pack()
+        
+        frame_valeur_input=LabelFrame(fênetre_valeur_input, text=trad_aaadh[langue])
+
+        bouton_définire_la_valeur=Button(frame_valeur_input, text=trad_jaaab[langue], command=mettre_une_valeur_pour_le_message).pack()
+
+        texte_pour_valeur_input=StringVar()
+        texte_pour_valeur_input.set(trad_aaabi[langue])
+        valeur_tmp="''"
+
+        texte_pour_valeur_du_input=Label(frame_valeur_input, textvariable=texte_pour_valeur_input).pack()
+
+        frame_valeur_input.pack()
+
+        bouton_valider=Button(fênetre_valeur_input, text=trad_jaaaa[langue], command=valider_valeur_input).pack()
+        fênetre_valeur_input.wait_window()
+
+
     global fênetre_ajouter_une_ligne_ecrire_dans_le_terminale
 
     fênetre_valeur=Toplevel(fênetre_ajouter_une_ligne_ecrire_dans_le_terminale)
@@ -611,7 +660,13 @@ def ajouter_une_valeur():
 
     bouton_valeur_personnalisé=Button(frame_valeur_personnalisé, text=trad_aaahd[langue], command=valeur_personnalisé).pack()
 
-    frame_valeur_personnalisé.grid(column=2, row=0, padx=5, pady=5)
+    frame_valeur_entré=LabelFrame(frame_choix_de_valeur, text=trad_aaahg[langue])
+
+    bouton_input=Button(frame_valeur_entré, text=trad_aaahi[langue], command=valeur_input).pack()
+
+    frame_valeur_entré.grid(column=2, row=0, padx=5, pady=5)
+
+    frame_valeur_personnalisé.grid(column=3, row=0, padx=5, pady=5)
 
     frame_choix_de_valeur.pack()
 

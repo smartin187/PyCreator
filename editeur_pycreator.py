@@ -94,13 +94,17 @@ def modifier_les_paramètre(fênetre:str):
     fênetre_paramétre.grab_set()
     fênetre_paramétre.wait_window()
 
+def réinitialiser_le_fichier():
+    """Cette fonction réinitialise le fichier."""
+    global fichier
+    fichier=[{"documentation":"", "variables":[]}]
 
 def éditeur_PyCreator():
     """Fonction principale de PyCreator"""
     apliquer_les_paramètre() # on met a jour les paramètre a l'ouverture
     global fichier
 
-    fichier=[{"documentation":"", "variables":[]}]
+    réinitialiser_le_fichier()
 
     global documentation_entrée_texte
 
@@ -159,7 +163,82 @@ def éditeur_PyCreator():
         avertissement_suppresion_de_variable.grab_set()
         avertissement_suppresion_de_variable.wait_window()
 
-    
+    def importer_un_fichier_fênetre():
+        """Cette fonctoin crée une fênetre où l'utilisateur peut choisire entre 3 posibilité d'importation :
+        - importer un projet en PPyC (fusioner les fichier)
+        - importer un code source Python en py (création d'élément personnalisé puis fustion avec le projet actuel)
+        - importer un code source Python en py dans un nouveau projet (création d'élément personnalisé dans un nouveau projet)
+        """
+        def valider_l_importation():
+            """Cette fonction est applé par le bouton 'valider'.
+            Cette fonction va gérer l'importation.
+            """
+            global fichier
+            fênetre_importer_un_fichier.destroy()
+            if valeur_radio_bouton.get()==1:        # importer un projet en PPyC.
+                fichier_pour_importation_tmp = importer_un_fichier_en_PPyC(langue_pour_gestionaire_de_fichier=langue, fichier_actuelle=fichier) 
+
+                if fichier_pour_importation_tmp!="Annuller":
+                    fichier=fichier_pour_importation_tmp
+
+                    mise_a_jours_interface_graphique()
+            
+            elif valeur_radio_bouton.get()==2:      # importer un code source Python dans le projet actuelle
+                fichier_pour_importation_tmp = importer_un_code_source_python_dans_le_projet(langue_pour_gestionaire_de_fichier=langue, fichier_actuelle=fichier)
+
+                if fichier_pour_importation_tmp!="Annuller":
+                    fichier = fichier_pour_importation_tmp
+
+                    mise_a_jours_interface_graphique()
+            
+            elif valeur_radio_bouton.get()==3:          # importer un code source Python dans un nouveau projet
+                réinitialiser_le_fichier()
+                fichier_pour_importation_tmp = importer_un_code_source_python_dans_le_projet(langue_pour_gestionaire_de_fichier=langue, fichier_actuelle=fichier)
+
+                if fichier_pour_importation_tmp!="Annuller":
+                    fichier = fichier_pour_importation_tmp
+
+                    mise_a_jours_interface_graphique()
+
+            else:
+                logging.error("Erreur d'imporatation : aucune option d'inportation")
+
+        
+        fênetre_importer_un_fichier=Toplevel(fênetre_éditeur_PyCreator)
+        fênetre_importer_un_fichier.title(trad_aaaib[langue])
+
+        texte_importer_un_fichier=Label(fênetre_importer_un_fichier, text=trad_aaaic[langue]).pack()
+
+        # radio bouton : séléction entre les 3 importation :
+
+        valeur_radio_bouton = IntVar()
+        valeur_radio_bouton.set(1)
+
+        frame_option_1=LabelFrame(fênetre_importer_un_fichier)
+        frame_option_2=LabelFrame(fênetre_importer_un_fichier)
+        frame_option_3=LabelFrame(fênetre_importer_un_fichier)
+
+        option_1 = Radiobutton(frame_option_1, text=trad_aaaid[langue], variable=valeur_radio_bouton, value=1)
+        option_2 = Radiobutton(frame_option_2, text=trad_aaaie[langue], variable=valeur_radio_bouton, value=2)
+        option_3 = Radiobutton(frame_option_3, text=trad_aaaif[langue], variable=valeur_radio_bouton, value=3)
+
+        option_1.pack()
+        option_2.pack()
+        option_3.pack()
+
+        frame_option_1.pack()
+        frame_option_2.pack()
+        frame_option_3.pack()
+
+        frame_command=Frame(fênetre_importer_un_fichier)
+        bouton_valider=Button(frame_command, text=trad_jaaaa[langue], command=valider_l_importation).grid(column=0, row=0, padx=5)
+        
+        bouton_annuler=Button(frame_command, text=trad_jaaaf[langue], command=fênetre_importer_un_fichier.destroy).grid(column=1, row=0, padx=5)
+
+        frame_command.pack(pady=10)
+
+        fênetre_importer_un_fichier.grab_set()
+        fênetre_importer_un_fichier.wait_window()
 
     global fênetre_éditeur_PyCreator
     global espace_de_code
@@ -181,6 +260,8 @@ def éditeur_PyCreator():
     menu_fichier.add_command(label=trad_aaaad[langue], command=enregister_le_fichier_fênetre)
 
     menu_fichier.add_command(label=trad_aaaae[langue], command=export)
+
+    menu_fichier.add_command(label=trad_aaaib[langue], command=importer_un_fichier_fênetre)
 
     menu_PyCreator = Menu(barre_menu_liste_déroulant, tearoff=0)
 
@@ -688,7 +769,7 @@ def ajouter_une_ligne():
         def valider():
             """Cette fonction valide le print"""
             ligne_de_code_tmp=f"print({valeur_tmp})"
-            fichier.append({"humain":{"fr":f"Ecrire dans le terminale {valeur_tmp}", "en":f"Write in the terminal {valeur_tmp}"}, "Python":ligne_de_code_tmp, "type":"action"})
+            fichier.append({"humain":{"fr":f"Ecrire dans le terminale {valeur_tmp}", "en":f"Write in the terminal {valeur_tmp}"}, "Python":ligne_de_code_tmp, "type":"action"})     # attention : la traduction ne peut pas être mise dans le fichier de traduction
             logging.debug("fichier : " + str(fichier))
             fênetre_ajouter_une_ligne_fonction_de_fenetre_graphique.destroy()
             mise_a_jours_interface_graphique()

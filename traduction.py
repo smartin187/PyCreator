@@ -4,8 +4,10 @@ Ce fichier contient les traduction de PyCreator.
 
 Le nom des traduction est un code composé de 5 lettre, chaque lettre correpond a un chifre, car il n'est pas possible de mettre des chifre dans le nom de dictionnaire.
 a=1 ; b=2 ; c=3 ; d=4 ; e=5 ; f=6 ; g=7 ; h=8 ; i=9 ; j=10
+
+Si une traduction n'est pas disponnible dans une langue, il faut bien mettre la clé de la langue, mais mettre la valeur de la clé la traduction en anglais.
+Mettre ensuite le commentaire #⚠️ pour signaler que la traduction n'a pas étais effectuer.
 """
-# traduction fréquentes :
 
 trad_jaaaa={"fr":"Valider", "en":"Validate"}
 
@@ -201,5 +203,42 @@ trad_aaahj={"fr":"Ajouter une valeur - L'utilisateur césit dans le terminal un 
 trad_aaaia={
     "fr":"L'utilisateur césit dans le terminal un texte\ninput()\n\nL'utilisateur écrit dans le terminal, aucun, un ou plusieurs caractère.\nQuand il appui sur 'Entrée', La valeur est validé.\nCette valeur est donc une chaine de caractère (potentiellement vide si l'utilisateur n'écrit rien).\n\nVous avez la posibilité de mettre un 'message' pour l'utilisateur :\nLe message sera écrit dans le terminal, puis l'utilisateur écrira le texte.\nUtiliser le pour dire a l'utilisateur que faire.\n",
     "en":"The user enters text in the terminal\ninput()\n\nThe user types in the terminal: none, one, or several characters.\nWhen they press 'Enter', the value is validated.\nThis value is therefore a string (possibly empty if the user types nothing).\n\nYou have the possibility to set a 'message' for the user:\nThe message will be displayed in the terminal, then the user will type the text.\nUse it to tell the user what to do.\n"
+}
+
+trad_aaaib={"fr":"📥 | Importer...", "en":"📥 | Import..."}
+
+trad_aaaic={
+    "fr":"Vous pouvez importer des projet PyCreator (*.PPyC) ou des code source Python (*.py).\nVous avez 3 posibilité d'import :",
+    "en":"You can import PyCreator projects (*.PPyC) or Python source code (*.py).\nYou have 3 import options:"
+}
+
+trad_aaaid={
+    "fr":"Importer un projet PyCreator :\nImporter un fichier *.PPyC, et le fusionner avec le projet actuel.",
+    "en":"Import a PyCreator project:\nImport a *.PPyC file and merge it with the current project."
+}
+
+trad_aaaie={
+    "fr":"Importer un code source Python dans ce projet :\nImporter un fichier *.py, et le fusionner avec ce projet PyCreator.\nNote : chaque ligne du code source Python sera convertit en élément personnalisé...",
+    "en":"Import Python source code into this project:\nImport a *.py file and merge it with this PyCreator project.\nNote: each line of the Python source code will be converted into a custom element..."
+}
+
+trad_aaaif={
+    "fr":"Importer un code source Python dans un nouveau projet :\nImporter un fichier *.py, en créant un nouveau projet PyCreator.\nNote : chaque ligne du code source Python sera convertit en élément personnalisé...",
+    "en":"Import Python source code into a new project:\nImport a *.py file, creating a new PyCreator project.\nNote: each line of the Python source code will be converted into a custom element..."
+}
+
+trad_aaaig={
+    "fr":"Importer un projet PyCreator",
+    "en":"Import an PyCreator project"
+}
+
+trad_aaaih={
+    "fr":"Importer un code source Python dans ce projet PyCreator",
+    "en":"Import an Python source code in this PyCreator project"
+}
+
+trad_aaaii={
+    "fr":"Code source Python",
+    "en":"Python source code"
 }
 

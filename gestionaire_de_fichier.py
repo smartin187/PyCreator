@@ -87,3 +87,64 @@ def ouvrir_un_fichier_PPyC(langue_pour_gestionaire_de_fichier):
         return fichier_convertit_en_liste
     else:
         return "Annuler"
+    
+
+def importer_un_fichier_en_PPyC(langue_pour_gestionaire_de_fichier, fichier_actuelle):
+    """Cette fonction permet de sélécionner un fichier (en *.PPyC), et fusionne les deux projet.
+    return le nouveau fichier (la fusion)
+    """
+    global langue
+    langue=langue_pour_gestionaire_de_fichier
+
+    chemain_d_accé_fichier_importer_en_PPyC = filedialog.askopenfilename(
+        title=trad_aaaig[langue],
+        filetypes=[(trad_aaacf[langue], "*.PPyC")]
+        )
+    
+    if chemain_d_accé_fichier_importer_en_PPyC=="":     # l'utilisateur a cliquer sur annuler
+        return "Annuller"
+
+    fichier_importation_en_PPyC=open(chemain_d_accé_fichier_importer_en_PPyC, "r", encoding="utf8")
+
+    fichier_tmp_importation=fichier_importation_en_PPyC.read()
+
+    fichier_importation_convertit_en_liste=ast.literal_eval(fichier_tmp_importation)
+
+    # fusion des variables
+    for élément_variable in fichier_importation_convertit_en_liste[0]["variables"]:
+        fichier_actuelle[0]["variables"].append(élément_variable)
+    
+    del fichier_importation_convertit_en_liste[0]
+
+    # fusion du code
+
+    for élément in fichier_importation_convertit_en_liste:
+        fichier_actuelle.append(élément)
+    
+    return fichier_actuelle
+
+def importer_un_code_source_python_dans_le_projet(langue_pour_gestionaire_de_fichier, fichier_actuelle):
+    """Cette fonction ouvre un projet Python et le fusionne avec le projet PPyC actuelle.
+    pour importer le projet python, cela crée des élément personnalisé pour chaque ligne du code python.
+    """
+    global langue
+    langue=langue_pour_gestionaire_de_fichier
+
+    chemain_d_accé_fichier_importer_en_py = filedialog.askopenfilename(
+        title=trad_aaaih[langue],
+        filetypes=[(trad_aaaii[langue], "*.py")]
+        )
+    
+    if chemain_d_accé_fichier_importer_en_py=="":     # l'utilisateur a cliquer sur annuler
+        return "Annuller"
+
+    fichier_importation_en_PPyC=open(chemain_d_accé_fichier_importer_en_py, "r", encoding="utf8")
+
+    fichier_tmp_importation=fichier_importation_en_PPyC.readlines()
+
+    for élément in fichier_tmp_importation:
+        fichier_actuelle.append({'humain': trad_aaahb, 'Python': élément, 'type': 'action'})
+    
+    return fichier_actuelle
+
+
